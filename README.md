@@ -598,8 +598,8 @@ As instruções serão completadas após a definição da stack e a criação do
 ### Clonar o repositório
 
 ```bash
-git clone https://github.com/2026-2-NCC3/Projeto4.git
-cd Projeto4
+git clone https://github.com/2026-2-NCC3/Projeto1.git
+cd Projeto1
 ```
 
 ### Aplicativo Android
@@ -856,10 +856,8 @@ Fundação Escola de Comércio Álvares Penteado - FECAP
 
 - Curso: Ciência da Computação;
 - Semestre: 3º semestre;
-- Turma: A;
 - Período: Noturno;
 - Ano: 2026;
-- Semestre letivo: 2º semestre.
 
 ---
 

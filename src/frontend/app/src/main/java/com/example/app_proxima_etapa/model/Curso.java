@@ -1,6 +1,10 @@
 package com.example.app_proxima_etapa.model;
 
-public class Curso {
+import java.io.Serializable;
+
+public class Curso implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String titulo;
@@ -15,7 +19,12 @@ public class Curso {
     private boolean possuiCertificado;
     private String categoria;
     private boolean ativo;
+    private int imagemResId;
 
+    /*
+     * Construtor completo.
+     * Usado para representar todos os dados do curso.
+     */
     public Curso(
             String id,
             String titulo,
@@ -42,6 +51,32 @@ public class Curso {
         this.possuiCertificado = possuiCertificado;
         this.categoria = categoria;
         this.ativo = true;
+        this.imagemResId = 0;
+    }
+
+    /*
+     * Construtor simplificado.
+     * Usado pela CursoApi para criar os cursos recebidos da API.
+     */
+    public Curso(
+            String titulo,
+            int totalVagas,
+            int imagemResId
+    ) {
+        this.id = "";
+        this.titulo = titulo;
+        this.descricao = "";
+        this.cargaHoraria = 0;
+        this.local = "";
+        this.bannerUrl = "";
+        this.universidadeId = "";
+        this.totalVagas = totalVagas;
+        this.vagasDisponiveis = totalVagas;
+        this.pontosConcedidos = 0;
+        this.possuiCertificado = false;
+        this.categoria = "";
+        this.ativo = true;
+        this.imagemResId = imagemResId;
     }
 
     public void atualizarDados(
@@ -92,6 +127,14 @@ public class Curso {
         return titulo;
     }
 
+    /*
+     * Mantido para compatibilidade com o CursoAdapter
+     * e com a DetalhesActivity criados pelo grupo.
+     */
+    public String getNome() {
+        return titulo;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -136,6 +179,10 @@ public class Curso {
         return ativo;
     }
 
+    public int getImagemResId() {
+        return imagemResId;
+    }
+
     public void setTitulo(String titulo) {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new IllegalArgumentException(
@@ -151,9 +198,9 @@ public class Curso {
     }
 
     public void setCargaHoraria(int cargaHoraria) {
-        if (cargaHoraria <= 0) {
+        if (cargaHoraria < 0) {
             throw new IllegalArgumentException(
-                    "A carga horaria deve ser maior que zero."
+                    "A carga horaria nao pode ser negativa."
             );
         }
 
@@ -172,6 +219,36 @@ public class Curso {
         this.universidadeId = universidadeId;
     }
 
+    public void setTotalVagas(int totalVagas) {
+        if (totalVagas < 0) {
+            throw new IllegalArgumentException(
+                    "O total de vagas nao pode ser negativo."
+            );
+        }
+
+        this.totalVagas = totalVagas;
+
+        if (vagasDisponiveis > totalVagas) {
+            vagasDisponiveis = totalVagas;
+        }
+    }
+
+    public void setVagasDisponiveis(int vagasDisponiveis) {
+        if (vagasDisponiveis < 0) {
+            throw new IllegalArgumentException(
+                    "As vagas disponiveis nao podem ser negativas."
+            );
+        }
+
+        if (vagasDisponiveis > totalVagas) {
+            throw new IllegalArgumentException(
+                    "As vagas disponiveis nao podem superar o total."
+            );
+        }
+
+        this.vagasDisponiveis = vagasDisponiveis;
+    }
+
     public void setPontosConcedidos(int pontosConcedidos) {
         if (pontosConcedidos < 0) {
             throw new IllegalArgumentException(
@@ -182,7 +259,9 @@ public class Curso {
         this.pontosConcedidos = pontosConcedidos;
     }
 
-    public void setPossuiCertificado(boolean possuiCertificado) {
+    public void setPossuiCertificado(
+            boolean possuiCertificado
+    ) {
         this.possuiCertificado = possuiCertificado;
     }
 
@@ -194,12 +273,17 @@ public class Curso {
         this.ativo = ativo;
     }
 
+    public void setImagemResId(int imagemResId) {
+        this.imagemResId = imagemResId;
+    }
+
     @Override
     public String toString() {
         return "Curso{" +
                 "id='" + id + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", local='" + local + '\'' +
+                ", totalVagas=" + totalVagas +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 ", ativo=" + ativo +
                 '}';

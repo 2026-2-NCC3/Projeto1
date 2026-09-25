@@ -1,5 +1,6 @@
 package com.example.app_proxima_etapa; // Confirme se o pacote está igual ao seu
 
+import com.example.app_proxima_etapa.model.Curso;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;

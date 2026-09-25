@@ -1,5 +1,6 @@
 package com.example.app_proxima_etapa;
 
+import com.example.app_proxima_etapa.model.Curso;
 import android.os.Handler;
 import android.os.Looper;
 

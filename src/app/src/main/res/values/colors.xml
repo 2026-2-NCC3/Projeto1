@@ -5,4 +5,8 @@
     <color name="green">#51C403</color>
     <color name="purple">#7214FA</color>
     <color name="yellow">#EEC545</color>
+    <color name="blue">#0226E6</color>
+    <color name="red">#ED001C</color>
+    <color name="grey">#808080</color>
+    <color name="brown">#B84725</color>
 </resources>

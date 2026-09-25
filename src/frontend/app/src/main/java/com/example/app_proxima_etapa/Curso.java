@@ -5,12 +5,12 @@ import java.io.Serializable;
 
 public class Curso implements Serializable {
     private String nome;
-    private int cargaHoraria;
+    private int totalVagas;
     private int imagemResId;
 
-    public Curso(String nome, int cargaHoraria, int imagemResId) {
+    public Curso(String nome, int totalVagas, int imagemResId) {
         this.nome = nome;
-        this.cargaHoraria = cargaHoraria;
+        this.totalVagas = totalVagas;
         this.imagemResId = imagemResId;
     }
 
@@ -18,8 +18,8 @@ public class Curso implements Serializable {
         return nome;
     }
 
-    public int getCargaHoraria() {
-        return cargaHoraria;
+    public int getTotalVagas() {
+        return totalVagas;
     }
 
     public int getImagemResId() {

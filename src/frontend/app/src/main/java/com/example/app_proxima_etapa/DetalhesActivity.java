@@ -23,7 +23,7 @@ public class DetalhesActivity extends AppCompatActivity {
 
             if (curso != null) {
                 txtNome.setText(curso.getNome());
-                txtCarga.setText("Carga Horária: " + curso.getCargaHoraria() + "horas");
+                txtCarga.setText("Total de vagas: " + curso.getTotalVagas());
                 imgCurso.setImageResource(curso.getImagemResId());
             }
         }

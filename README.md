@@ -4,9 +4,13 @@ Aplicativo mobile integrado a dados educacionais para acompanhamento da jornada 
 
 Projeto Interdisciplinar do 3º semestre de Ciência da Computação da FECAP, Turma A, período noturno, desenvolvido no segundo semestre de 2026.
 
-> Status: Em planejamento e desenvolvimento.
+> Status da Entrega 1: núcleo funcional implementado e testado.
 >
-> Este README apresenta o escopo planejado. As funcionalidades deverão ser atualizadas conforme forem implementadas e validadas pelo grupo.
+> O aplicativo Android consulta os cursos por meio da API REST publicada no Render, integrada ao banco PostgreSQL no Supabase.
+>
+> API: https://proxima-etapa-api-ncc3.onrender.com
+>
+> Cursos: https://proxima-etapa-api-ncc3.onrender.com/courses
 
 ---
 
@@ -593,8 +597,7 @@ Observações sobre a estrutura:
 
 ## 17. COMO EXECUTAR O PROJETO
 
-As instruções serão completadas após a definição da stack e a criação dos módulos.
-
+As instruções abaixo descrevem como executar os módulos disponíveis na Entrega 1.
 ### Clonar o repositório
 
 ```bash
@@ -605,15 +608,15 @@ cd Projeto1
 ### Aplicativo Android
 
 1. Instale o Android Studio e o JDK exigido pelo projeto;
-2. Abra a pasta `mobile/android`;
+2. Abra a pasta `src/frontend`;
 3. Aguarde a sincronização do Gradle;
 4. Configure um emulador ou conecte um dispositivo Android;
 5. Execute o aplicativo.
 
 ### Backend
 
-1. Acesse a pasta `backend`;
-2. Leia o arquivo `backend/README.md`;
+1. Acesse a pasta `src/backend`;
+2. Leia o arquivo `src/backend/README.md`;
 3. Copie `.env.example` para `.env` apenas no computador local;
 4. Configure o banco de dados;
 5. Instale as dependências da tecnologia escolhida;
@@ -621,28 +624,18 @@ cd Projeto1
 
 ### Módulo web
 
-1. Acesse a pasta `web`;
-2. Leia o arquivo `web/README.md`;
-3. Configure as variáveis locais;
-4. Instale as dependências;
-5. Execute o módulo web.
+O módulo web está planejado para as próximas etapas e não faz parte da Entrega 1.
 
 ---
 
 ## 18. VARIÁVEIS DE AMBIENTE
 
-Exemplo de `.env.example`:
-
+O exemplo de configuração está em `src/backend/.env.example`:
 ```env
-DATABASE_HOST=
-DATABASE_PORT=
-DATABASE_NAME=
-DATABASE_USER=
-DATABASE_PASSWORD=
-API_PORT=
-TOKEN_SECRET=
+DATABASE_URL=CONEXAO_DO_SUPABASE
+ADMIN_API_KEY=CHAVE_ADMINISTRATIVA
+PORT=3000
 ```
-
 Nunca preencher senhas reais no `.env.example`.
 
 ---

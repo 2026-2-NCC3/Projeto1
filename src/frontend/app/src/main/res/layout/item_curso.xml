@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginStart="14dp"
-        android:text="Carga Horária: -- XXX horas"
+        android:text="Total de vagas: --"
         android:textSize="14dp"
         app:layout_constraintEnd_toStartOf="@+id/btnDetalhes"
         app:layout_constraintStart_toEndOf="@+id/imgCursoIcone"

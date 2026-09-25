@@ -38,7 +38,7 @@ public class CursoAdapter extends RecyclerView.Adapter<CursoAdapter.CursoViewHol
 
         // Preenche os dados na tela
         holder.txtNomeCurso.setText(curso.getNome());
-        holder.txtCargaHoraria.setText("Carga Horária: " + curso.getCargaHoraria() + "h");
+        holder.txtCargaHoraria.setText("Total de vagas: " + curso.getTotalVagas());
         holder.imgCursoIcone.setImageResource(curso.getImagemResId());
 
         // Ação do botão "Detalhes" usando Intent

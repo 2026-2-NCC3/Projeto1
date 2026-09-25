@@ -141,3 +141,10 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+# Android e Gradle
+.gradle/
+**/.gradle/
+**/build/
+**/.idea/
+*.iml
+local.properties

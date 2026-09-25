@@ -1,0 +1,25 @@
+{
+  "name": "proxima-etapa-api",
+  "version": "1.0.0",
+  "description": "API de cursos do aplicativo Próxima Etapa, desenvolvida para o Projeto Interdisciplinar da FECAP.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js",
+    "test": "npm run check"
+  },
+  "keywords": [
+    "fecap",
+    "proxima-etapa",
+    "cursos",
+    "api"
+  ],
+  "author": "Grupo Próxima Etapa",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  }
+}

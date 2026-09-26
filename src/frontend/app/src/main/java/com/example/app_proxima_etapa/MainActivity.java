@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (com.example.app_proxima_etapa.api.AuthSession.getToken() == null) {
+            startActivity(new android.content.Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
 
         // Ligar a variável ao RecyclerView criado no activity_main.xml

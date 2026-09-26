@@ -15,7 +15,7 @@
         android:theme="@style/Theme.App_Proxima_Etapa">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false">
         </activity>
         <activity
             android:name=".DetalhesActivity"

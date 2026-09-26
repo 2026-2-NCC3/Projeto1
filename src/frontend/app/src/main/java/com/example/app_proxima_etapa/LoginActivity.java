@@ -2,64 +2,79 @@ package com.example.app_proxima_etapa;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.app_proxima_etapa.api.ApiService;
-import com.example.app_proxima_etapa.api.LoginRequest;
-import com.example.app_proxima_etapa.api.LoginResponse;
-import com.example.app_proxima_etapa.api.RetrofitClient;
-
+import com.example.app_proxima_etapa.api.*;
+import java.util.Locale;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    private Call<LoginResponse> pending;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        AuthSession.clear();
+        Button entrar = findViewById(R.id.btnEntrar);
+        TextView criar = findViewById(R.id.txtCriarConta);
+        EditText emailField = findViewById(R.id.edtEmailLogin);
+        EditText passwordField = findViewById(R.id.edtSenhaLogin);
+        criar.setOnClickListener(v -> startActivity(new Intent(this, CadastroActivity.class)));
 
-        Button btnEntrar = findViewById(R.id.btnEntrar);
-        TextView txtCriarConta = findViewById(R.id.txtCriarConta);
-
-        // Ao clicar em Entrar, vai para o Dashboard (MainActivity)
-
-        btnEntrar.setOnClickListener(v -> {
-            // Pega o que o utilizador digitou
-            String email = ((EditText) findViewById(R.id.edtEmailLogin)).getText().toString();
-            String senha = ((EditText) findViewById(R.id.edtSenhaLogin)).getText().toString();
-
-            // Monta o pedido
-            LoginRequest request = new LoginRequest(email, senha);
-            ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-
-            // Faz a chamada para a internet (assíncrona para não travar a tela)
-            apiService.fazerLogin(request).enqueue(new retrofit2.Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        // Deu certo! O backend confirmou o login
-                        Toast.makeText(LoginActivity.this, "Login Realizado!", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+        entrar.setOnClickListener(v -> {
+            String email = emailField.getText().toString().trim().toLowerCase(Locale.ROOT);
+            String password = passwordField.getText().toString();
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                emailField.setError("Informe um e-mail válido.");
+                return;
+            }
+            if (password.isEmpty()) {
+                passwordField.setError("Informe a senha.");
+                return;
+            }
+            entrar.setEnabled(false);
+            criar.setEnabled(false);
+            entrar.setText("Entrando...");
+            pending = RetrofitClient.getRetrofitInstance().create(ApiService.class)
+                    .fazerLogin(new LoginRequest(email, password));
+            pending.enqueue(new Callback<LoginResponse>() {
+                @Override public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (isFinishing() || isDestroyed()) return;
+                    entrar.setEnabled(true);
+                    criar.setEnabled(true);
+                    entrar.setText("Entrar");
+                    LoginResponse body = response.body();
+                    if (response.isSuccessful() && body != null
+                            && body.getToken() != null && !body.getToken().isEmpty()) {
+                        AuthSession.setToken(body.getToken());
+                        passwordField.setText("");
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } else {
-                        // O backend devolveu erro (ex: senha incorreta)
-                        Toast.makeText(LoginActivity.this, "Erro: E-mail ou senha incorretos", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, AuthErrors.message(response), Toast.LENGTH_LONG).show();
                     }
                 }
-
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    // Erro de rede (backend offline, sem internet, etc)
-                    Toast.makeText(LoginActivity.this, "Falha na conexão: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                @Override public void onFailure(Call<LoginResponse> call, Throwable error) {
+                    if (call.isCanceled() || isFinishing() || isDestroyed()) return;
+                    entrar.setEnabled(true);
+                    criar.setEnabled(true);
+                    entrar.setText("Entrar");
+                    Toast.makeText(LoginActivity.this,
+                            "Não foi possível conectar. Confira a internet e tente novamente.", Toast.LENGTH_LONG).show();
                 }
             });
         });
+    }
+
+    @Override protected void onDestroy() {
+        if (pending != null) pending.cancel();
+        super.onDestroy();
     }
 }

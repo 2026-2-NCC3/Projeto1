@@ -53,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse body = response.body();
                     if (response.isSuccessful() && body != null
                             && body.getToken() != null && !body.getToken().isEmpty()) {
+                        EventoLog.RegistrarEvento(
+                                "LOGIN DO USUÁRIO - "+email
+                        );
                         AuthSession.setToken(body.getToken());
                         passwordField.setText("");
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));

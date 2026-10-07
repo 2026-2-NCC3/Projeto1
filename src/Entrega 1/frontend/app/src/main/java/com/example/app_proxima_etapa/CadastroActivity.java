@@ -51,6 +51,9 @@ public class CadastroActivity extends AppCompatActivity {
                     registrar.setText("Criar Conta");
                     if (response.code() == 201 && response.body() != null) {
                         senhaField.setText("");
+                        EventoLog.RegistrarEvento(
+                                "NOVO CADASTRO DE USUÁRIO - "+email
+                        );
                         Toast.makeText(CadastroActivity.this,
                                 "Conta criada! Entre com seu e-mail e senha.", Toast.LENGTH_LONG).show();
                         finish();

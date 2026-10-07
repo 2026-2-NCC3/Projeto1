@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "App_Proxima_Etapa"
 include(":app")
+include(":app")

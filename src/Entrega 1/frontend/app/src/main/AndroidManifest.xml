@@ -15,7 +15,13 @@
         android:theme="@style/Theme.App_Proxima_Etapa">
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".DetalhesActivity"
@@ -28,9 +34,9 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity> <!-- Adicione esta tag de fecho aqui -->
         <activity
             android:name=".CadastroActivity"

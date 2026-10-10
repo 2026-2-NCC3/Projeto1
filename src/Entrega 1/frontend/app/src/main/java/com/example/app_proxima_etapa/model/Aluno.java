@@ -6,6 +6,8 @@ public class Aluno {
     private String ra;
     private String nome;
     private String email;
+    private String cpf;
+    private String telefone;
     private String faculdade;
     private String cursoFaculdade;
     private StatusAluno status;
@@ -21,12 +23,17 @@ public class Aluno {
             String nome,
             String email,
             String faculdade,
-            String cursoFaculdade
+            String cursoFaculdade,
+            String cpf,
+            String telefone
+
     ) {
         this.id = id;
         this.ra = ra;
         this.nome = nome;
         this.email = email;
+        this.cpf=cpf;
+        this.telefone=telefone;
         this.faculdade = faculdade;
         this.cursoFaculdade = cursoFaculdade;
         this.status = StatusAluno.ATIVO;
@@ -89,6 +96,22 @@ public class Aluno {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getFaculdade() {

@@ -1,5 +1,6 @@
-package com.example.app_proxima_etapa;
+package com.example.app_proxima_etapa.curso;
 
+import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.model.Curso;
 import android.os.Bundle;
 import android.widget.Button;

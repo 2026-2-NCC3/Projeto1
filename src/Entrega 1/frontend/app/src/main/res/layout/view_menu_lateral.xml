@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menuLateralCompleto"
+    android:layout_width="323dp"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- ================================================= -->
+    <!-- PAINEL VERDE PRINCIPAL                            -->
+    <!-- ================================================= -->
+
+    <LinearLayout
+        android:id="@+id/painelMenu"
+        android:layout_width="265dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#43C900"
+        android:orientation="vertical"
+        android:paddingTop="125dp">
+
+        <!-- TÍTULO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="32dp"
+            android:text="PRÓXIMA ETAPA"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+        <!-- INÍCIO -->
+        <TextView
+            android:id="@+id/opcaoInicio"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Início"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- AGENDA -->
+        <TextView
+            android:id="@+id/opcaoAgenda"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Agenda"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- MEUS CURSOS -->
+        <TextView
+            android:id="@+id/opcaoCursos"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Meus cursos"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- MEU PERFIL -->
+        <TextView
+            android:id="@+id/opcaoPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Meu perfil"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- SEPARADOR -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="12dp"
+            android:background="#55FFFFFF" />
+
+        <!-- CONFIGURAÇÕES -->
+        <TextView
+            android:id="@+id/opcaoConfiguracoes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Configurações"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- SAIR -->
+        <TextView
+            android:id="@+id/opcaoSair"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Sair"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- ================================================= -->
+    <!-- PONTINHA DO MENU                                  -->
+    <!-- Permanece projetada para fora do painel           -->
+    <!-- ================================================= -->
+
+    <FrameLayout
+        android:id="@+id/btnMenuLateral"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="105dp"
+        android:background="#43C900">
+
+        <!-- ÍCONE HAMBÚRGUER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- LINHA 1 -->
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF" />
+
+            <!-- LINHA 2 -->
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF" />
+
+            <!-- LINHA 3 -->
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:background="#FFFFFF" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

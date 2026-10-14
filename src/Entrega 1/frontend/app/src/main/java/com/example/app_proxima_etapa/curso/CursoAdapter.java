@@ -1,5 +1,6 @@
-package com.example.app_proxima_etapa; // Confirme se o pacote está igual ao seu
+package com.example.app_proxima_etapa.curso; // Confirme se o pacote está igual ao seu
 
+import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.model.Curso;
 import android.content.Context;
 import android.content.Intent;

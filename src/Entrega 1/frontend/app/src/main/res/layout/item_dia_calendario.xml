@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="105dp"
+    android:orientation="vertical"
+    android:paddingStart="2dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="2dp"
+    android:paddingBottom="3dp">
+
+    <!-- Número do dia -->
+    <TextView
+        android:id="@+id/txtNumeroDia"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="14"
+        android:textColor="#35363A"
+        android:textSize="12sp" />
+
+    <!-- Eventos daquele dia -->
+    <LinearLayout
+        android:id="@+id/containerEventos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical" />
+
+</LinearLayout>

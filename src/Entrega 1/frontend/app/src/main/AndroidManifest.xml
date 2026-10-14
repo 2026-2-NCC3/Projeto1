@@ -24,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetalhesActivity"
+            android:name=".curso.DetalhesActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"> <!-- Substitua o / por apenas > no final desta linha -->
 
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity> <!-- Adicione esta tag de fecho aqui -->
         <activity
-            android:name=".CadastroActivity"
+            android:name=".login.CadastroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

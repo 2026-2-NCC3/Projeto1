@@ -1,4 +1,4 @@
-package com.example.app_proxima_etapa;
+package com.example.app_proxima_etapa.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.app_proxima_etapa.EventoLog;
+import com.example.app_proxima_etapa.MainActivity;
+import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.*;
 import java.util.Locale;
 import retrofit2.Call;

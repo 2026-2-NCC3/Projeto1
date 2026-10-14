@@ -1,4 +1,4 @@
-package com.example.app_proxima_etapa;
+package com.example.app_proxima_etapa.login;
 
 import android.os.Bundle;
 import android.util.Patterns;
@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.app_proxima_etapa.EventoLog;
+import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;

@@ -8,4 +8,15 @@ public final class AuthSession {
     public static void setToken(String value) { token = value; }
     public static String getToken() { return token; }
     public static void clear() { token = null; }
+
+    private static  String userId;
+
+    public static String getUserId(){
+        return userId;
+    }
+
+    public static void setUserId(String userId){
+        AuthSession.userId = userId;
+    }
+
 }

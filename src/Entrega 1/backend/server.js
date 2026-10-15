@@ -52,6 +52,56 @@ app.param('id', (req, res, next, id) => {
   }
   next();
 });
+//Atualização automática da blacklist
+async function registrarFalta(userId) {
+
+  await pool.query(
+    `
+    UPDATE users
+    SET faltas = faltas + 1
+    WHERE id = $1
+    `,
+    [userId]
+  );
+
+  await pool.query(
+    `
+    UPDATE users
+    SET blacklist = true
+    WHERE id = $1
+    AND faltas >= 3
+    `,
+    [userId]
+  );
+
+}
+//Verificar ausentes após o evento
+async function verificarAusentes(courseId) {
+
+  const resultado = await pool.query(
+    `
+    SELECT e.user_id
+    FROM enrollments e
+
+    LEFT JOIN attendances a
+    ON e.user_id = a.user_id
+    AND e.course_id = a.course_id
+
+    WHERE e.course_id = $1
+    AND a.id IS NULL
+    `,
+    [courseId]
+  );
+
+  for (const aluno of resultado.rows) {
+
+      await registrarFalta(
+          aluno.user_id
+      );
+
+  }
+
+}
 
 app.post('/auth/register', async (req, res) => {
   try {
@@ -238,6 +288,139 @@ app.get('/courses/:id', async (req, res) => {
     }
     res.status(500).json({ erro: 'Não foi possível concluir a operação.' });
   }
+});
+
+app.post('/courses/:id/register', verificarToken, async (req, res) => {
+
+  try {
+
+    const courseId = req.params.id;
+    const userId = req.usuario.id;
+
+    // CONSULTA O USUÁRIO
+    const usuario = await pool.query(
+      `
+      SELECT blacklist
+      FROM users
+      WHERE id = $1
+      `,
+      [userId]
+    );
+
+    if (usuario.rows.length === 0) {
+      return res.status(404).json({
+        erro: 'Usuário não encontrado.'
+      });
+    }
+
+    // VERIFICA BLACKLIST
+    if (usuario.rows[0].blacklist) {
+      return res.status(403).json({
+        erro: 'Você está na blacklist e não pode se inscrever em novos cursos.'
+      });
+    }
+
+    // REALIZA INSCRIÇÃO
+    const resultado = await pool.query(
+      `
+      INSERT INTO enrollments (
+        user_id,
+        course_id
+      )
+      VALUES ($1, $2)
+      RETURNING *
+      `,
+      [userId, courseId]
+    );
+
+    res.status(201).json({
+      mensagem: 'Inscrição realizada com sucesso.',
+      inscricao: resultado.rows[0]
+    });
+
+  } catch (erro) {
+
+    if (erro.code === '23505') {
+      return res.status(409).json({
+        erro: 'Você já está inscrito neste curso.'
+      });
+    }
+
+    console.error(erro);
+
+    res.status(500).json({
+      erro: 'Não foi possível realizar a inscrição.'
+    });
+
+  }
+
+});
+app.post('/courses/:id/attendance', verificarChave, async (req, res) => {
+
+  try {
+
+    const { user_id, presente } = req.body;
+
+    const resultado = await pool.query(
+      `
+      INSERT INTO attendances (
+          user_id,
+          course_id,
+          presente
+      )
+      VALUES($1,$2,$3)
+      RETURNING *
+      `,
+      [
+        user_id,
+        req.params.id,
+        presente
+      ]
+    );
+
+    res.status(201).json(resultado.rows[0]);
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    res.status(500).json({
+      erro: 'Erro ao registrar presença.'
+    });
+
+  }
+
+});
+
+//Consultar BlackList
+app.get('/blacklist', verificarChave, async (req, res) => {
+
+  try {
+
+    const resultado = await pool.query(
+      `
+      SELECT
+        id,
+        name,
+        email,
+        faltas
+      FROM users
+      WHERE blacklist = true
+      `
+    );
+
+    res.json(resultado.rows);
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    res.status(500).json({
+      erro: 'Erro ao consultar blacklist.'
+    });
+
+  }
+
 });
 
 

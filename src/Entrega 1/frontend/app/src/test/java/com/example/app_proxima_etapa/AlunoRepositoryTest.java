@@ -28,16 +28,21 @@ public class AlunoRepositoryTest {
                 "Arthur Ferreira",
                 "arthur@email.com",
                 "Faculdade Exemplo",
-                "Ciencia da Computacao"
+                "Ciencia da Computacao",
+                "12345678909",
+                "11999998888"
         );
 
         alunoBeatriz = new Aluno(
-                "2",
-                "25028271",
-                "Beatriz Silva",
-                "beatriz@email.com",
-                "Faculdade Exemplo",
-                "Administracao"
+                        "2",
+                        "25028271",
+                        "Beatriz Silva",
+                        "beatriz@email.com",
+                        "Faculdade Exemplo",
+                        "Administracao",
+                        "12345678909",
+                        "11999998888"
+
         );
     }
 
@@ -58,7 +63,9 @@ public class AlunoRepositoryTest {
                 "Outro Aluno",
                 "outro@email.com",
                 "Faculdade Exemplo",
-                "Direito"
+                "Direito",
+                "12345678909",
+                "11999998888"
         );
 
         assertTrue(repository.cadastrar(alunoArthur));

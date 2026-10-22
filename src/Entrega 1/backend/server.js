@@ -55,7 +55,7 @@ app.param('id', (req, res, next, id) => {
 
 app.post('/auth/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body || {};
+    const { name, email, cpf, telefone, password } = req.body || {};
 
     if (typeof name !== 'string' || !name.trim()) {
       return res.status(400).json({
@@ -69,6 +69,19 @@ app.post('/auth/register', async (req, res) => {
       });
     }
 
+    if (typeof cpf !== 'string' || cpf.length !== 11) {
+    return res.status(400).json({
+        erro: 'O CPF deve ter 11 números.'
+    });
+  }
+
+    if (typeof telefone !== 'string' || !/^\d{11}$/.test(telefone)) {
+    return res.status(400).json({
+        erro: 'Informe um telefone com 11 números.'
+    });
+    
+}
+  
     if (typeof password !== 'string' || password.length < 8) {
       return res.status(400).json({
         erro: 'A senha deve possuir pelo menos 8 caracteres.'
@@ -79,10 +92,10 @@ app.post('/auth/register', async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 12);
 
     const resultado = await pool.query(
-      `INSERT INTO users (name, email, password_hash)
-       VALUES ($1, $2, $3)
+      `INSERT INTO users (name, email, cpf, telefone, password_hash)
+      VALUES ($1, $2, $3, $4, $5)
        RETURNING id, name, email, created_at`,
-      [name.trim(), emailNormalizado, passwordHash]
+     [name.trim(), emailNormalizado, cpf, telefone, passwordHash]
     );
 
     res.status(201).json({

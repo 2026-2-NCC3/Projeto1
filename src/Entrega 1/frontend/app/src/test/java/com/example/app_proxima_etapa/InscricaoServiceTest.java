@@ -31,7 +31,9 @@ public class InscricaoServiceTest {
                 "Arthur Ferreira",
                 "arthur@email.com",
                 "Faculdade Exemplo",
-                "Ciencia da Computacao"
+                "Ciencia da Computacao",
+                "12345678909",
+                "11999998888"
         );
 
         curso = new Curso(

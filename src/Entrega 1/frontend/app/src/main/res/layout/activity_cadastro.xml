@@ -46,6 +46,30 @@
         app:layout_constraintTop_toBottomOf="@+id/edtNomeCadastro" />
 
     <EditText
+        android:id="@+id/edtCpfCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="CPF"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmailCadastro" />
+
+    <EditText
+        android:id="@+id/edtTelefoneCadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Telefone"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCpfCadastro" />
+
+    <EditText
         android:id="@+id/edtSenhaCadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,7 +79,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmailCadastro" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTelefoneCadastro" />
 
     <Button
         android:id="@+id/btnRegistrar"

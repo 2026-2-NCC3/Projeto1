@@ -3,5 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
   name text NOT NULL,
   email text NOT NULL UNIQUE,
   password_hash text NOT NULL,
+  cpf text,
+telefone text,
   created_at timestamptz NOT NULL DEFAULT now()
 );

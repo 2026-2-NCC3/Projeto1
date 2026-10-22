@@ -18,9 +18,11 @@ public class AuthContractTest {
     }
 
     @Test public void registrationUsesBackendFields() {
-        JsonObject json = gson.toJsonTree(new RegisterRequest("Aluno", "aluno@example.com", "SenhaTeste123!")).getAsJsonObject();
+        JsonObject json = gson.toJsonTree(new RegisterRequest("Aluno", "aluno@example.com", "12345678909", "11999998888", "SenhaTeste123!")).getAsJsonObject();
         assertEquals("Aluno", json.get("name").getAsString());
-        assertEquals(3, json.size());
+        assertEquals(5, json.size());
+        assertTrue(json.has("cpf"));
+        assertTrue(json.has("telefone"));
         assertTrue(json.has("email"));
         assertTrue(json.has("password"));
     }

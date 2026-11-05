@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,38 +70,46 @@ public class CursosFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         // Busca os cursos
+        view.findViewById(R.id.btnAtualizarCursos).setOnClickListener(v -> carregarCursos());
         carregarCursos();
     }
 
     private void carregarCursos() {
 
-        CursoApi cursoApi = new CursoApi();
+        final View tela = requireView();
+        tela.findViewById(R.id.btnAtualizarCursos).setEnabled(false);
+        ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText("Carregando cursos…");
+        CursoApi cursoApi = new CursoApi(requireContext());
 
         cursoApi.buscarCursos(new CursoApi.Retorno() {
 
             @Override
             public void sucesso(List<Curso> cursos) {
 
+                if (!isAdded() || getView() != tela) return;
                 listaDeCursos.clear();
                 listaDeCursos.addAll(cursos);
 
                 adapter.notifyDataSetChanged();
+                tela.findViewById(R.id.btnAtualizarCursos).setEnabled(true);
+                ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(cursos.isEmpty()
+                        ? "Nenhum curso disponível no momento." : "Cursos atualizados.");
+            }
+
+            @Override public void cache(List<Curso> cursos) {
+                sucesso(cursos);
+                if (isAdded() && getView() == tela)
+                    ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(
+                            "Servidor indisponível. Exibindo a última consulta salva. Toque em Atualizar para tentar novamente.");
             }
 
             @Override
             public void erro() {
 
-                // Evita tentar mostrar Toast se o Fragment
-                // já não estiver ligado à Activity
-                if (!isAdded()) {
-                    return;
-                }
-
-                Toast.makeText(
-                        requireContext(),
-                        "Não foi possível carregar os cursos.",
-                        Toast.LENGTH_LONG
-                ).show();
+                if (!isAdded() || getView() != tela) return;
+                tela.findViewById(R.id.btnAtualizarCursos).setEnabled(true);
+                ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(
+                        "Não foi possível carregar os cursos. Confira a conexão e toque em Atualizar.");
             }
         });
     }

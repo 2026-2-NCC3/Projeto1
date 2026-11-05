@@ -32,16 +32,13 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize"> <!-- Substitua o / por apenas > no final desta linha -->
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity> <!-- Adicione esta tag de fecho aqui -->
         <activity
             android:name=".login.CadastroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".perfil.PerfilActivity" android:exported="false" />
     </application>
 
 </manifest>

@@ -155,9 +155,8 @@ public class MainActivity extends AppCompatActivity {
         // MEU PERFIL
         // Ainda criaremos essa tela
         opcaoPerfil.setOnClickListener(v -> {
-
             fecharMenu();
-
+            startActivity(new Intent(this, com.example.app_proxima_etapa.perfil.PerfilActivity.class));
         });
 
 
@@ -171,11 +170,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         // SAIR
-        // Depois ligamos ao logout real da AuthSession
+        // Encerra a sessão e remove as telas autenticadas da pilha.
         opcaoSair.setOnClickListener(v -> {
-
-            fecharMenu();
-
+            AuthSession.clear();
+            Intent login = new Intent(this, LoginActivity.class);
+            login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(login);
+            finish();
         });
     }
 

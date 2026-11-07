@@ -20,14 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CursosFragment extends Fragment {
-
     private List<Curso> listaDeCursos;
     private CursoAdapter adapter;
 
     public CursosFragment() {
-        // Construtor vazio obrigatório do Fragment
     }
-
     @Nullable
     @Override
     public View onCreateView(
@@ -35,82 +32,73 @@ public class CursosFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        return inflater.inflate(
-                R.layout.fragment_cursos,
-                container,
-                false
-        );
+        return inflater.inflate(R.layout.fragment_cursos, container, false);
     }
-
     @Override
     public void onViewCreated(
             @NonNull View view,
             @Nullable Bundle savedInstanceState
     ) {
         super.onViewCreated(view, savedInstanceState);
+        boolean meusCursos = getArguments() != null
+                && getArguments().getBoolean("meusCursos", false);
+        TextView titulo = view.findViewById(R.id.txtTituloCursos);
+        titulo.setText(meusCursos ? "Meus cursos" : "Cursos Disponíveis");
 
-        // Encontra o RecyclerView dentro do fragment_cursos.xml
-        RecyclerView recyclerView =
-                view.findViewById(R.id.recyclerViewCursos);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCursos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Lista vertical
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext())
-        );
-
-        // Cria a lista que receberá os cursos da API
         listaDeCursos = new ArrayList<>();
-
-        // Liga a lista ao mesmo CursoAdapter que você já utilizava
-        adapter = new CursoAdapter(
-                listaDeCursos,
-                requireContext()
-        );
-
+        adapter = new CursoAdapter(listaDeCursos, requireContext());
         recyclerView.setAdapter(adapter);
 
-        // Busca os cursos
-        view.findViewById(R.id.btnAtualizarCursos).setOnClickListener(v -> carregarCursos());
+        view.findViewById(R.id.btnAtualizarCursos)
+                .setOnClickListener(v -> carregarCursos());
         carregarCursos();
     }
-
     private void carregarCursos() {
-
         final View tela = requireView();
+
         tela.findViewById(R.id.btnAtualizarCursos).setEnabled(false);
-        ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText("Carregando cursos…");
+        ((TextView) tela.findViewById(R.id.txtStatusCursos))
+                .setText("Carregando cursos…");
+
         CursoApi cursoApi = new CursoApi(requireContext());
-
-        cursoApi.buscarCursos(new CursoApi.Retorno() {
-
+        CursoApi.Retorno retorno = new CursoApi.Retorno() {
             @Override
             public void sucesso(List<Curso> cursos) {
-
                 if (!isAdded() || getView() != tela) return;
                 listaDeCursos.clear();
                 listaDeCursos.addAll(cursos);
-
                 adapter.notifyDataSetChanged();
                 tela.findViewById(R.id.btnAtualizarCursos).setEnabled(true);
-                ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(cursos.isEmpty()
-                        ? "Nenhum curso disponível no momento." : "Cursos atualizados.");
+                ((TextView) tela.findViewById(R.id.txtStatusCursos))
+                        .setText(cursos.isEmpty()
+                                ? "Nenhum curso disponível no momento."
+                                : "Cursos atualizados.");
             }
-
-            @Override public void cache(List<Curso> cursos) {
+            @Override
+            public void cache(List<Curso> cursos) {
                 sucesso(cursos);
-                if (isAdded() && getView() == tela)
-                    ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(
-                            "Servidor indisponível. Exibindo a última consulta salva. Toque em Atualizar para tentar novamente.");
+                if (isAdded() && getView() == tela) {
+                    ((TextView) tela.findViewById(R.id.txtStatusCursos))
+                            .setText("Servidor indisponível. Exibindo a última consulta salva. Toque em Atualizar para tentar novamente.");
+                }
             }
-
             @Override
             public void erro() {
-
                 if (!isAdded() || getView() != tela) return;
                 tela.findViewById(R.id.btnAtualizarCursos).setEnabled(true);
-                ((TextView) tela.findViewById(R.id.txtStatusCursos)).setText(
-                        "Não foi possível carregar os cursos. Confira a conexão e toque em Atualizar.");
+                ((TextView) tela.findViewById(R.id.txtStatusCursos))
+                        .setText("Não foi possível carregar os cursos. Confira a conexão e toque em Atualizar.");
             }
-        });
+        };
+        boolean meusCursos = getArguments() != null
+                && getArguments().getBoolean("meusCursos", false);
+        if (meusCursos) {
+            cursoApi.buscarMeusCursos(retorno);
+        } else {
+            cursoApi.buscarCursos(retorno);
+        }
     }
 }

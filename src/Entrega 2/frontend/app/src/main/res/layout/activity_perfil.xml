@@ -1,16 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="24dp">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Meu perfil" android:textSize="28sp" android:textStyle="bold" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nome" android:layout_marginTop="24dp" />
-        <TextView android:id="@+id/txtNomePerfil" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="20sp" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="E-mail" android:layout_marginTop="16dp" />
-        <TextView android:id="@+id/txtEmailPerfil" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" />
-        <TextView android:id="@+id/txtStatusPerfil" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:accessibilityLiveRegion="polite" />
-        <Button android:id="@+id/btnAtualizarPerfil" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Atualizar" android:layout_marginTop="16dp" />
-        <Button android:id="@+id/btnVoltarPerfil" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Voltar" />
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meu perfil"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:layout_marginTop="24dp" />
+
+        <TextView
+            android:id="@+id/txtNomePerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="E-mail"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/txtEmailPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtStatusPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:accessibilityLiveRegion="polite" />
+
+        <Button
+            android:id="@+id/btnAtualizarPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Atualizar"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btnVoltarPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voltar" />
+
+        <Button
+            android:id="@+id/btnQrCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meu QR Code" />
+
+        <Button
+            android:id="@+id/btnAbrirLeitor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ler QR Code" />
+
+
+
     </LinearLayout>
 </ScrollView>

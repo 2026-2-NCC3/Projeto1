@@ -14,7 +14,7 @@ public final class AuthErrors {
                 if (!message.isEmpty()) return message;
             }
         } catch (Exception ignored) {
-            // Uma falha do servidor pode retornar HTML em vez de JSON.
+             
         }
         return "Não foi possível concluir. Tente novamente mais tarde.";
     }

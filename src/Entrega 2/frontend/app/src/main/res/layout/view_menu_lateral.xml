@@ -8,9 +8,9 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <!-- ================================================= -->
-    <!-- PAINEL VERDE PRINCIPAL                            -->
-    <!-- ================================================= -->
+    
+    
+    
 
     <LinearLayout
         android:id="@+id/painelMenu"
@@ -21,7 +21,7 @@
         android:orientation="vertical"
         android:paddingTop="125dp">
 
-        <!-- TÍTULO -->
+        
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:textSize="21sp"
             android:textStyle="bold" />
 
-        <!-- INÍCIO -->
+        
         <TextView
             android:id="@+id/opcaoInicio"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <!-- AGENDA -->
+        
         <TextView
             android:id="@+id/opcaoAgenda"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <!-- MEUS CURSOS -->
+        
         <TextView
             android:id="@+id/opcaoCursos"
             android:layout_width="match_parent"
@@ -72,7 +72,19 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <!-- MEU PERFIL -->
+        <TextView
+            android:id="@+id/opcaoHistorico"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="26dp"
+            android:paddingEnd="20dp"
+            android:text="Histórico de presenças"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        
         <TextView
             android:id="@+id/opcaoPerfil"
             android:layout_width="match_parent"
@@ -85,7 +97,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <!-- SEPARADOR -->
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -95,7 +107,7 @@
             android:layout_marginBottom="12dp"
             android:background="#55FFFFFF" />
 
-        <!-- CONFIGURAÇÕES -->
+        
         <TextView
             android:id="@+id/opcaoConfiguracoes"
             android:layout_width="match_parent"
@@ -108,7 +120,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <!-- SAIR -->
+        
         <TextView
             android:id="@+id/opcaoSair"
             android:layout_width="match_parent"
@@ -123,10 +135,10 @@
 
     </LinearLayout>
 
-    <!-- ================================================= -->
-    <!-- PONTINHA DO MENU                                  -->
-    <!-- Permanece projetada para fora do painel           -->
-    <!-- ================================================= -->
+    
+    
+    
+    
 
     <FrameLayout
         android:id="@+id/btnMenuLateral"
@@ -137,28 +149,28 @@
         android:layout_marginTop="105dp"
         android:background="#43C900">
 
-        <!-- ÍCONE HAMBÚRGUER -->
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <!-- LINHA 1 -->
+            
             <View
                 android:layout_width="30dp"
                 android:layout_height="3dp"
                 android:layout_marginBottom="6dp"
                 android:background="#FFFFFF" />
 
-            <!-- LINHA 2 -->
+            
             <View
                 android:layout_width="30dp"
                 android:layout_height="3dp"
                 android:layout_marginBottom="6dp"
                 android:background="#FFFFFF" />
 
-            <!-- LINHA 3 -->
+            
             <View
                 android:layout_width="30dp"
                 android:layout_height="3dp"

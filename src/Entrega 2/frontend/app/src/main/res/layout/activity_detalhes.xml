@@ -14,16 +14,17 @@
         android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/img_curso_online"
+        android:contentDescription="Imagem do curso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtDetalheNome"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:textSize="38dp"
+        android:textSize="38sp"
         android:textStyle="bold"
         android:gravity="center"
         android:text="Nome do Curso"
@@ -36,20 +37,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="Total de vagas: --"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalheNome" />
 
     <Button
+        android:id="@+id/btnInscrever"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Inscrever-se"
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalheCargaHoraria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDetalheCargaHoraria" />
+        app:layout_constraintTop_toBottomOf="@+id/btnInscrever" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

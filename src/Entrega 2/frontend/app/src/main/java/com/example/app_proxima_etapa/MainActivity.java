@@ -17,14 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     private View menuLateral;
     private View btnMenuLateral;
-
     private boolean menuAberto = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Verifica se existe usuário autenticado
         if (AuthSession.getToken() == null) {
 
             Intent intent = new Intent(
@@ -36,13 +32,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-
         setContentView(R.layout.activity_main);
-
-        // =================================================
-        // VIEWPAGER
-        // =================================================
-
         viewPagerPrincipal =
                 findViewById(R.id.viewPagerPrincipal);
 
@@ -50,53 +40,26 @@ public class MainActivity extends AppCompatActivity {
                 new MainPagerAdapter(this);
 
         viewPagerPrincipal.setAdapter(pagerAdapter);
-
-        // 0 = Agenda
-        // 1 = Cursos
-        //
-        // O aplicativo começa na tela de Cursos
         viewPagerPrincipal.setCurrentItem(
                 1,
                 false
         );
-
-
-        // =================================================
-        // MENU LATERAL
-        // =================================================
 
         menuLateral =
                 findViewById(R.id.menuLateral);
 
         btnMenuLateral =
                 findViewById(R.id.btnMenuLateral);
-
-        /*
-         * Depois que o layout estiver pronto,
-         * fecha o menu sem animação.
-         *
-         * Assim somente a pontinha verde fica visível.
-         */
         menuLateral.post(() -> {
             fecharMenuSemAnimacao();
         });
-
-
-        // Clique na pontinha
         btnMenuLateral.setOnClickListener(v -> {
-
             if (menuAberto) {
                 fecharMenu();
             } else {
                 abrirMenu();
             }
         });
-
-
-        // =================================================
-        // ITENS DO MENU
-        // =================================================
-
         TextView opcaoInicio =
                 findViewById(R.id.opcaoInicio);
 
@@ -115,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
         TextView opcaoSair =
                 findViewById(R.id.opcaoSair);
 
-
-        // INÍCIO
         opcaoInicio.setOnClickListener(v -> {
-
             viewPagerPrincipal.setCurrentItem(
                     1,
                     true
@@ -126,11 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             fecharMenu();
         });
-
-
-        // AGENDA
         opcaoAgenda.setOnClickListener(v -> {
-
             viewPagerPrincipal.setCurrentItem(
                     0,
                     true
@@ -139,38 +95,24 @@ public class MainActivity extends AppCompatActivity {
             fecharMenu();
         });
 
-
-        // MEUS CURSOS
         opcaoCursos.setOnClickListener(v -> {
-
-            viewPagerPrincipal.setCurrentItem(
-                    1,
-                    true
-            );
-
+            viewPagerPrincipal.setCurrentItem(2, true);
             fecharMenu();
         });
-
-
-        // MEU PERFIL
-        // Ainda criaremos essa tela
+        findViewById(R.id.opcaoHistorico).setOnClickListener(v -> {
+            fecharMenu();
+            startActivity(new Intent(this,
+                    com.example.app_proxima_etapa.historico.HistoricoActivity.class));
+        });
         opcaoPerfil.setOnClickListener(v -> {
             fecharMenu();
             startActivity(new Intent(this, com.example.app_proxima_etapa.perfil.PerfilActivity.class));
         });
-
-
-        // CONFIGURAÇÕES
-        // Ainda criaremos essa tela
         opcaoConfiguracoes.setOnClickListener(v -> {
 
             fecharMenu();
 
         });
-
-
-        // SAIR
-        // Encerra a sessão e remove as telas autenticadas da pilha.
         opcaoSair.setOnClickListener(v -> {
             AuthSession.clear();
             Intent login = new Intent(this, LoginActivity.class);
@@ -179,46 +121,16 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
     }
-
-
-    // =====================================================
-    // ABRIR MENU
-    // =====================================================
-
     private void abrirMenu() {
-
         menuAberto = true;
-
-        /*
-         * Volta o componente inteiro para a posição original.
-         *
-         * Painel + pontinha se movem juntos.
-         */
         menuLateral
                 .animate()
                 .translationX(0f)
                 .setDuration(280)
                 .start();
     }
-
-
-    // =====================================================
-    // FECHAR MENU
-    // =====================================================
-
     private void fecharMenu() {
-
         menuAberto = false;
-
-        /*
-         * O painel possui 265dp.
-         *
-         * Movemos todo o componente 265dp
-         * para a esquerda.
-         *
-         * Assim o painel desaparece,
-         * enquanto a pontinha permanece visível.
-         */
         float deslocamento = dpParaPx(265);
 
         menuLateral
@@ -227,30 +139,14 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(280)
                 .start();
     }
-
-
-    // =====================================================
-    // FECHAR SEM ANIMAÇÃO
-    // =====================================================
-
     private void fecharMenuSemAnimacao() {
-
         menuAberto = false;
-
         float deslocamento = dpParaPx(265);
-
         menuLateral.setTranslationX(
                 -deslocamento
         );
     }
-
-
-    // =====================================================
-    // CONVERTER DP PARA PIXELS
-    // =====================================================
-
     private float dpParaPx(float dp) {
-
         return dp *
                 getResources()
                         .getDisplayMetrics()

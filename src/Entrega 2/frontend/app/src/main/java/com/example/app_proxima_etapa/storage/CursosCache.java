@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/** Cache apenas do catálogo público. Nenhuma credencial ou dado do aluno é salvo. */
+ 
 public final class CursosCache extends SQLiteOpenHelper {
     public CursosCache(Context context) { this(context, "catalogo.db"); }
     public CursosCache(Context context, String databaseName) {

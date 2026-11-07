@@ -10,7 +10,7 @@
     android:paddingEnd="2dp"
     android:paddingBottom="3dp">
 
-    <!-- Número do dia -->
+    
     <TextView
         android:id="@+id/txtNumeroDia"
         android:layout_width="30dp"
@@ -22,7 +22,7 @@
         android:textColor="#35363A"
         android:textSize="12sp" />
 
-    <!-- Eventos daquele dia -->
+    
     <LinearLayout
         android:id="@+id/containerEventos"
         android:layout_width="match_parent"

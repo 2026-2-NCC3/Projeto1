@@ -56,7 +56,7 @@ public class Aluno {
     }
 
     public void atualizarPerfil() {
-        // Será implementado quando criarmos a tela de perfil.
+         
     }
 
     public double consultarProgresso() {

@@ -3,25 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="App_Proxima_Etapa"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App_Proxima_Etapa">
         <activity
+            android:name=".qrcode.QrCodeActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".curso.DetalhesActivity"
@@ -30,15 +34,22 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"> <!-- Substitua o / por apenas > no final desta linha -->
-
-
-        </activity> <!-- Adicione esta tag de fecho aqui -->
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".login.CadastroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".perfil.PerfilActivity" android:exported="false" />
-    </application>
+        <activity
+            android:name=".perfil.PerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".leitor.LeitorQrActivity"
+            android:exported="false" />
+        <activity android:name=".historico.HistoricoActivity" android:exported="false" />
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="barcode_ui" />
 
+
+    </application>
 </manifest>

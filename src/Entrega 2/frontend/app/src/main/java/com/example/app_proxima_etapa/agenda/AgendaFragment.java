@@ -1,3 +1,4 @@
+
 package com.example.app_proxima_etapa.agenda;
 
 import android.os.Bundle;
@@ -5,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app_proxima_etapa.CursoApi;
 import com.example.app_proxima_etapa.R;
+import com.example.app_proxima_etapa.model.Curso;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.DateFormatSymbols;
@@ -28,8 +32,9 @@ public class AgendaFragment extends Fragment {
     private CalendarioAdapter calendarioAdapter;
     private Calendar mesAtual;
 
+    private final List<Curso> cursos = new ArrayList<>();
+
     public AgendaFragment() {
-        // Construtor vazio obrigatório
     }
 
     @Nullable
@@ -39,7 +44,6 @@ public class AgendaFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-
         return inflater.inflate(
                 R.layout.fragment_agenda,
                 container,
@@ -55,299 +59,162 @@ public class AgendaFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        // Texto que mostra o mês e o ano
-        txtMesAno =
-                view.findViewById(R.id.txtMesAno);
+        txtMesAno = view.findViewById(R.id.txtMesAno);
 
-        // RecyclerView que mostra os dias
-        recyclerCalendario =
-                view.findViewById(R.id.recyclerCalendario);
+        recyclerCalendario = view.findViewById(
+                R.id.recyclerCalendario
+        );
 
-        // Botão para voltar um mês
         MaterialButton btnMesAnterior =
                 view.findViewById(R.id.btnMesAnterior);
 
-        // Botão para avançar um mês
         MaterialButton btnProximoMes =
                 view.findViewById(R.id.btnProximoMes);
 
-        /*
-         * O calendário possui 7 colunas:
-         *
-         * DOM SEG TER QUA QUI SEX SÁB
-         */
         recyclerCalendario.setLayoutManager(
-                new GridLayoutManager(
-                        requireContext(),
-                        7
-                )
+                new GridLayoutManager(requireContext(), 7)
         );
 
-        // Evita animações estranhas quando o mês é alterado
         recyclerCalendario.setItemAnimator(null);
 
-        // Pega a data atual do aparelho
         mesAtual = Calendar.getInstance();
+        mesAtual.set(Calendar.DAY_OF_MONTH, 1);
 
-        // Trabalhamos sempre com o primeiro dia do mês
-        mesAtual.set(
-                Calendar.DAY_OF_MONTH,
-                1
-        );
-
-        // Monta o calendário inicial
         atualizarCalendario();
 
-        /*
-         * MÊS ANTERIOR
-         */
         btnMesAnterior.setOnClickListener(v -> {
-
-            mesAtual.add(
-                    Calendar.MONTH,
-                    -1
-            );
-
+            mesAtual.add(Calendar.MONTH, -1);
             atualizarCalendario();
         });
 
-        /*
-         * PRÓXIMO MÊS
-         */
         btnProximoMes.setOnClickListener(v -> {
-
-            mesAtual.add(
-                    Calendar.MONTH,
-                    1
-            );
-
+            mesAtual.add(Calendar.MONTH, 1);
             atualizarCalendario();
+        });
+
+        carregarCursos(view);
+    }
+    private void carregarCursos(View view) {
+
+        CursoApi cursoApi = new CursoApi(requireContext());
+
+        cursoApi.buscarMeusCursos(new CursoApi.Retorno() {
+
+            @Override
+            public void sucesso(List<Curso> listaCursos) {
+
+                if (!isAdded() || getView() != view) {
+                    return;
+                }
+
+                cursos.clear();
+                cursos.addAll(listaCursos);
+
+                Toast.makeText(
+                        requireContext(),
+                        "Meus cursos recebidos: " + cursos.size(),
+                        Toast.LENGTH_LONG
+                ).show();
+
+                atualizarCalendario();
+            }
+
+            @Override
+            public void erro() {
+
+                if (!isAdded() || getView() != view) {
+                    return;
+                }
+
+                Toast.makeText(
+                        requireContext(),
+                        "Erro ao carregar meus cursos",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
         });
     }
 
-    /*
-     * Atualiza toda a grade quando:
-     *
-     * - a tela abre;
-     * - o usuário volta um mês;
-     * - o usuário avança um mês.
-     */
     private void atualizarCalendario() {
 
         atualizarTituloMes();
 
-        // Gera todos os dias necessários
-        List<DiaCalendario> dias =
-                gerarDiasDoMes();
+        List<DiaCalendario> dias = gerarDiasDoMes();
 
-        // Cria o Adapter
-        calendarioAdapter =
-                new CalendarioAdapter(dias);
+        calendarioAdapter = new CalendarioAdapter(dias);
 
-        // Exibe no RecyclerView
-        recyclerCalendario.setAdapter(
-                calendarioAdapter
-        );
+        recyclerCalendario.setAdapter(calendarioAdapter);
     }
 
-    /*
-     * Atualiza o título:
-     *
-     * Outubro 2026
-     * Novembro 2026
-     * Dezembro 2026
-     * Janeiro 2027
-     */
     private void atualizarTituloMes() {
 
-        int numeroMes =
-                mesAtual.get(
-                        Calendar.MONTH
-                );
+        int numeroMes = mesAtual.get(Calendar.MONTH);
+        int ano = mesAtual.get(Calendar.YEAR);
 
-        int ano =
-                mesAtual.get(
-                        Calendar.YEAR
-                );
+        Locale localeBrasil = new Locale("pt", "BR");
 
-        Locale localeBrasil =
-                new Locale(
-                        "pt",
-                        "BR"
-                );
+        String nomeMes = new DateFormatSymbols(localeBrasil)
+                .getMonths()[numeroMes];
 
-        String nomeMes =
-                new DateFormatSymbols(localeBrasil)
-                        .getMonths()[numeroMes];
+        if (nomeMes != null && !nomeMes.isEmpty()) {
 
-        /*
-         * Deixa a primeira letra maiúscula:
-         *
-         * outubro
-         *
-         * vira
-         *
-         * Outubro
-         */
-        if (
-                nomeMes != null
-                        && !nomeMes.isEmpty()
-        ) {
-
-            nomeMes =
-                    nomeMes
-                            .substring(0, 1)
-                            .toUpperCase(localeBrasil)
-                            + nomeMes.substring(1);
+            nomeMes = nomeMes.substring(0, 1)
+                    .toUpperCase(localeBrasil)
+                    + nomeMes.substring(1);
         }
 
-        String titulo =
-                nomeMes + " " + ano;
-
-        txtMesAno.setText(titulo);
+        txtMesAno.setText(nomeMes + " " + ano);
     }
 
-    /*
-     * Gera os dias que serão mostrados
-     * no calendário.
-     */
     private List<DiaCalendario> gerarDiasDoMes() {
 
-        List<DiaCalendario> dias =
-                new ArrayList<>();
+        List<DiaCalendario> dias = new ArrayList<>();
 
-        /*
-         * Fazemos uma cópia para não modificar
-         * diretamente a variável mesAtual.
-         */
-        Calendar calendario =
-                (Calendar) mesAtual.clone();
+        Calendar calendario = (Calendar) mesAtual.clone();
+        calendario.set(Calendar.DAY_OF_MONTH, 1);
 
-        /*
-         * Vai para o primeiro dia daquele mês.
-         */
-        calendario.set(
-                Calendar.DAY_OF_MONTH,
-                1
+        int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
+        int espacosAntes = diaSemana - 1;
+
+        for (int i = 0; i < espacosAntes; i++) {
+            dias.add(new DiaCalendario(0, false));
+        }
+
+        int quantidadeDias = calendario.getActualMaximum(
+                Calendar.DAY_OF_MONTH
         );
 
-        /*
-         * Calendar trabalha desta forma:
-         *
-         * DOMINGO = 1
-         * SEGUNDA  = 2
-         * TERÇA    = 3
-         * QUARTA   = 4
-         * QUINTA   = 5
-         * SEXTA    = 6
-         * SÁBADO   = 7
-         *
-         * Nossa agenda agora trabalha assim:
-         *
-         * DOM SEG TER QUA QUI SEX SÁB
-         *
-         *  0   1   2   3   4   5   6
-         */
+        int ano = mesAtual.get(Calendar.YEAR);
+        int mes = mesAtual.get(Calendar.MONTH) + 1;
 
-        int diaSemana =
-                calendario.get(
-                        Calendar.DAY_OF_WEEK
-                );
+        for (int numeroDia = 1;
+             numeroDia <= quantidadeDias;
+             numeroDia++) {
 
-        /*
-         * Como nossa primeira coluna é domingo,
-         * basta subtrair 1.
-         *
-         * Exemplos:
-         *
-         * Domingo:
-         * 1 - 1 = 0 espaços
-         *
-         * Segunda:
-         * 2 - 1 = 1 espaço
-         *
-         * Quinta:
-         * 5 - 1 = 4 espaços
-         */
-        int espacosAntes =
-                diaSemana - 1;
-
-        /*
-         * Adiciona os espaços vazios antes
-         * do primeiro dia do mês.
-         */
-        for (
-                int i = 0;
-                i < espacosAntes;
-                i++
-        ) {
-
-            dias.add(
-                    new DiaCalendario(
-                            0,
-                            false
-                    )
+            DiaCalendario dia = new DiaCalendario(
+                    numeroDia,
+                    true
             );
-        }
 
-        /*
-         * Descobre quantos dias existem
-         * naquele mês.
-         *
-         * Exemplo:
-         *
-         * Outubro = 31
-         * Novembro = 30
-         * Fevereiro = 28 ou 29
-         */
-        int quantidadeDias =
-                calendario.getActualMaximum(
-                        Calendar.DAY_OF_MONTH
-                );
-
-        /*
-         * Adiciona os dias reais:
-         *
-         * 1
-         * 2
-         * 3
-         * ...
-         * 31
-         */
-        for (
-                int dia = 1;
-                dia <= quantidadeDias;
-                dia++
-        ) {
-
-            dias.add(
-                    new DiaCalendario(
-                            dia,
-                            true
-                    )
+            String data = String.format(
+                    Locale.US,
+                    "%04d-%02d-%02d",
+                    ano,
+                    mes,
+                    numeroDia
             );
+            for (Curso curso : cursos) {
+                String dataCurso = curso.getDataCurso();
+                if (dataCurso != null
+                        && dataCurso.startsWith(data)) {
+                    dia.adicionarCurso(curso);
+                }
+            }
+            dias.add(dia);
         }
-
-        /*
-         * Completa a última semana.
-         *
-         * O total precisa sempre ser
-         * múltiplo de 7 para manter:
-         *
-         * DOM SEG TER QUA QUI SEX SÁB
-         */
-        while (
-                dias.size() % 7 != 0
-        ) {
-
-            dias.add(
-                    new DiaCalendario(
-                            0,
-                            false
-                    )
-            );
+        while (dias.size() % 7 != 0) {
+            dias.add(new DiaCalendario(0, false));
         }
-
         return dias;
     }
 }

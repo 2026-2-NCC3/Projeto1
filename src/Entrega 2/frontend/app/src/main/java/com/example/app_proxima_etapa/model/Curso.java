@@ -1,3 +1,4 @@
+
 package com.example.app_proxima_etapa.model;
 
 import java.io.Serializable;
@@ -18,13 +19,10 @@ public class Curso implements Serializable {
     private int pontosConcedidos;
     private boolean possuiCertificado;
     private String categoria;
+    private String dataCurso = "";
     private boolean ativo;
     private int imagemResId;
 
-    /*
-     * Construtor completo.
-     * Usado para representar todos os dados do curso.
-     */
     public Curso(
             String id,
             String titulo,
@@ -54,10 +52,6 @@ public class Curso implements Serializable {
         this.imagemResId = 0;
     }
 
-    /*
-     * Construtor simplificado.
-     * Usado pela CursoApi para criar os cursos recebidos da API.
-     */
     public Curso(
             String titulo,
             int totalVagas,
@@ -127,10 +121,6 @@ public class Curso implements Serializable {
         return titulo;
     }
 
-    /*
-     * Mantido para compatibilidade com o CursoAdapter
-     * e com a DetalhesActivity criados pelo grupo.
-     */
     public String getNome() {
         return titulo;
     }
@@ -173,6 +163,10 @@ public class Curso implements Serializable {
 
     public String getCategoria() {
         return categoria;
+    }
+
+    public String getDataCurso() {
+        return dataCurso;
     }
 
     public boolean isAtivo() {
@@ -267,6 +261,10 @@ public class Curso implements Serializable {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public void setDataCurso(String dataCurso) {
+        this.dataCurso = dataCurso;
     }
 
     public void setAtivo(boolean ativo) {

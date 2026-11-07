@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FAFAFC">
 
-    <!-- Detalhe superior -->
+    
     <View
         android:id="@+id/detalheSuperior"
         android:layout_width="38dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Resumo -->
+    
     <TextView
         android:id="@+id/txtResumoAgenda"
         android:layout_width="0dp"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detalheSuperior" />
 
-    <!-- Cabeçalho do mês -->
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutCabecalhoMes"
         android:layout_width="0dp"
@@ -106,7 +106,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Dias da semana: DOMINGO ATÉ SÁBADO -->
+    
     <LinearLayout
         android:id="@+id/layoutDiasSemana"
         android:layout_width="0dp"
@@ -150,7 +150,7 @@
 
     </LinearLayout>
 
-    <!-- Separador -->
+    
     <View
         android:id="@+id/divisorCalendario"
         android:layout_width="0dp"
@@ -162,7 +162,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutDiasSemana" />
 
-    <!-- Grade -->
+    
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendario"
         android:layout_width="0dp"

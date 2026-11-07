@@ -39,12 +39,12 @@ function verificarToken(req, res, next) {
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  // O Supabase exige conexão SSL.
+   
   ssl: { rejectUnauthorized: false }
 });
 
 
-// Confere o formato do ID nas rotas que usam :id.
+ 
 app.param('id', (req, res, next, id) => {
   const formatoUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   if (!formatoUUID.test(id)) {
@@ -257,7 +257,7 @@ app.get('/courses/:id', async (req, res) => {
 app.post('/courses', verificarChave, async (req, res) => {
   try {
     const { title, description, location, course_date, category } = req.body || {};
-    // A mesma validação é usada ao cadastrar e ao editar.
+     
     if (typeof title !== 'string' || !title.trim()) {
       return res.status(400).json({ erro: 'Por favor, informe o título do curso.' });
     }
@@ -282,7 +282,7 @@ app.post('/courses', verificarChave, async (req, res) => {
 app.put('/courses/:id', verificarChave, async (req, res) => {
   try {
     const { title, description, location, course_date, category } = req.body || {};
-    // A mesma validação é usada ao cadastrar e ao editar.
+     
     if (typeof title !== 'string' || !title.trim()) {
       return res.status(400).json({ erro: 'Por favor, informe o título do curso.' });
     }
@@ -321,6 +321,131 @@ app.delete('/courses/:id', verificarChave, async (req, res) => {
     }
     res.status(500).json({ erro: 'Não foi possível concluir a operação.' });
   }
+});
+
+app.post('/presencas', verificarToken, async (req, res) => {
+
+    try {
+      const usuario = await pool.query(
+    'SELECT tipo_usuario FROM users WHERE id = $1',
+    [req.usuario.id]
+);
+if (usuario.rows.length === 0 ||
+    usuario.rows[0].tipo_usuario !== 'responsavel') {
+
+    return res.status(403).json({
+        erro: 'Acesso permitido apenas para responsáveis.'
+    });
+}
+const { codigoQrCode, course_id } = req.body || {};
+if (!codigoQrCode || !codigoQrCode.startsWith('ALUNO-') || !course_id) {
+    return res.status(400).json({ erro: 'Dados inválidos.' });
+}
+const alunoId = codigoQrCode.substring(6);
+const inscricao = await pool.query(
+    'SELECT id FROM enrollments WHERE user_id::text = $1 AND course_id::text = $2',
+    [alunoId, course_id]
+);
+        if (inscricao.rows.length === 0) {
+            return res.status(404).json({ erro: 'Aluno não inscrito.' });
+        }
+        const resultado = await pool.query(
+            `INSERT INTO presencas (enrollment_id)
+             VALUES ($1)
+             ON CONFLICT (enrollment_id) DO NOTHING
+             RETURNING id`,
+            [inscricao.rows[0].id]
+        );
+        if (resultado.rows.length === 0) {
+            return res.status(409).json({ erro: 'Presença já registrada.' });
+        }
+        res.status(201).json({ mensagem: 'Presença registrada!' });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao registrar presença.' });
+    }
+});
+app.get('/me/courses', verificarToken, async (req, res) => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT * FROM courses
+       WHERE id IN (
+         SELECT course_id FROM enrollments
+         WHERE user_id::text = $1
+       )
+       ORDER BY course_date`,
+      [req.usuario.id]
+    );
+    res.json(rows);
+  } catch {
+    res.status(500).json({ erro: 'Erro ao buscar seus cursos.' });
+  }
+});
+
+app.get('/me/presencas', verificarToken, async (req, res) => {
+    try {
+        const resultado = await pool.query(
+            `SELECT
+                c.title AS curso,
+                p.data_hora
+             FROM presencas p
+             JOIN enrollments e
+                ON p.enrollment_id = e.id
+             JOIN courses c
+                ON e.course_id = c.id
+             WHERE e.user_id = $1
+             ORDER BY p.data_hora DESC`,
+            [req.usuario.id]
+        );
+        res.json(resultado.rows);
+
+    } catch (erro) {
+        res.status(500).json({
+            erro: 'Erro ao buscar histórico.'
+        });
+    }
+});
+
+app.post('/courses/:id/register', verificarToken, async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        const userId = req.usuario.id;
+        const usuario = await pool.query(
+            `SELECT blacklist
+             FROM users
+             WHERE id = $1`,
+            [userId]
+        );
+        if (usuario.rows.length === 0) {
+            return res.status(404).json({
+                erro: 'Usuário não encontrado.'
+            });
+        }
+        if (usuario.rows[0].blacklist) {
+            return res.status(403).json({
+                erro: 'Você está na blacklist e não pode se inscrever em novos cursos.'
+            });
+        }
+        const resultado = await pool.query(
+            `INSERT INTO enrollments (user_id, course_id)
+             VALUES ($1, $2)
+             RETURNING *`,
+            [userId, courseId]
+        );
+        res.status(201).json({
+            mensagem: 'Inscrição realizada com sucesso.',
+            inscricao: resultado.rows[0]
+        });
+    } catch (erro) {
+        if (erro.code === '23505') {
+            return res.status(409).json({
+                erro: 'Você já está inscrito neste curso.'
+            });
+        }
+        console.error(erro);
+        res.status(500).json({
+            erro: 'Não foi possível realizar a inscrição.'
+        });
+    }
 });
 
 const PORT = process.env.PORT || 3000;

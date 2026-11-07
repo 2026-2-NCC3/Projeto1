@@ -3,13 +3,18 @@ package com.example.app_proxima_etapa.perfil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import com.example.app_proxima_etapa.leitor.LeitorQrActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.*;
 import com.example.app_proxima_etapa.login.LoginActivity;
+import com.example.app_proxima_etapa.qrcode.QrCodeActivity;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.UUID;
 import retrofit2.*;
 
-/** Consulta o próprio usuário. O servidor obtém sua identidade pelo token. */
+ 
 public class PerfilActivity extends AppCompatActivity {
     private Call<PerfilUsuario> pending;
     @Override public void onCreate(Bundle state) {
@@ -18,7 +23,13 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
         findViewById(R.id.btnVoltarPerfil).setOnClickListener(v -> finish());
         findViewById(R.id.btnAtualizarPerfil).setOnClickListener(v -> carregar());
+        findViewById(R.id.btnQrCode).setEnabled(false);
+        findViewById(R.id.btnAbrirLeitor).setOnClickListener(v -> {
+            Intent tela = new Intent(this, LeitorQrActivity.class);
+            startActivity(tela);
+        });
         carregar();
+
     }
     private void carregar() {
         if (pending != null) pending.cancel();
@@ -36,6 +47,18 @@ public class PerfilActivity extends AppCompatActivity {
                 PerfilUsuario perfil = response.body();
                 ((TextView) findViewById(R.id.txtNomePerfil)).setText(perfil.getName());
                 ((TextView) findViewById(R.id.txtEmailPerfil)).setText(perfil.getEmail());
+                String id = perfil.getId();
+                AuthSession.setAlunoId(id);
+                if (id != null && !id.isEmpty()) {
+                    String codigo = "ALUNO-" + id;
+                    findViewById(R.id.btnQrCode).setEnabled(true);
+                    findViewById(R.id.btnQrCode).setOnClickListener(v -> {
+                        Intent tela = new Intent(PerfilActivity.this, QrCodeActivity.class);
+                        tela.putExtra("codigoQrCode", codigo);
+                        startActivity(tela);
+                    });
+                }
+
                 status.setText("Dados atualizados pela Próxima Etapa.");
             }
             @Override public void onFailure(Call<PerfilUsuario> call, Throwable error) {

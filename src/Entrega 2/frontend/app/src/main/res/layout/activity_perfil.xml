@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@color/perfil_fundo"
+    android:fillViewport="true"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,70 +13,190 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Meu perfil"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            app:cardBackgroundColor="@color/perfil_roxo"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nome"
-            android:layout_marginTop="24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-        <TextView
-            android:id="@+id/txtNomePerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PRÓXIMA ETAPA"
+                    android:textColor="@color/perfil_amarelo"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="E-mail"
-            android:layout_marginTop="16dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/perfil_titulo"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:accessibilityHeading="true" />
 
-        <TextView
-            android:id="@+id/txtEmailPerfil"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/perfil_subtitulo"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/perfil_verde"
+                    android:importantForAccessibility="no" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/perfil_borda"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perfil_dados"
+                    android:textColor="@color/perfil_roxo"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:accessibilityHeading="true" />
+
+                <TextView
+                    style="@style/PerfilRotulo"
+                    android:labelFor="@id/txtNomePerfil"
+                    android:text="@string/perfil_nome" />
+
+                <TextView
+                    android:id="@+id/txtNomePerfil"
+                    style="@style/PerfilValor" />
+
+                <TextView
+                    style="@style/PerfilRotulo"
+                    android:labelFor="@id/txtEmailPerfil"
+                    android:text="@string/perfil_email" />
+
+                <TextView
+                    android:id="@+id/txtEmailPerfil"
+                    style="@style/PerfilValor" />
+
+                <TextView
+                    style="@style/PerfilRotulo"
+                    android:labelFor="@id/txtCpfPerfil"
+                    android:text="@string/perfil_cpf" />
+
+                <TextView
+                    android:id="@+id/txtCpfPerfil"
+                    style="@style/PerfilValor" />
+
+                <TextView
+                    style="@style/PerfilRotulo"
+                    android:labelFor="@id/txtTelefonePerfil"
+                    android:text="@string/perfil_telefone" />
+
+                <TextView
+                    android:id="@+id/txtTelefonePerfil"
+                    style="@style/PerfilValor" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/txtStatusPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:accessibilityLiveRegion="polite" />
+            android:layout_marginTop="16dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/perfil_texto_secundario"
+            android:textSize="14sp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAtualizarPerfil"
+            style="@style/PerfilBotao"
+            android:layout_marginTop="12dp"
+            android:text="@string/perfil_atualizar" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atualizar"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/perfil_acessos"
+            android:textColor="@color/perfil_texto"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:accessibilityHeading="true" />
 
-        <Button
-            android:id="@+id/btnVoltarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Voltar" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQrCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Meu QR Code" />
+            style="@style/PerfilBotao"
+            android:text="@string/perfil_qr"
+            android:textColor="@color/perfil_texto"
+            app:backgroundTint="@color/perfil_amarelo" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAbrirLeitor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ler QR Code" />
+            style="@style/PerfilBotao"
+            android:text="@string/perfil_leitor" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCardAluno"
+            style="@style/PerfilBotao"
+            android:text="Card digital" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCertificados"
+            style="@style/PerfilBotao"
+            android:text="Meus certificados" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTestePerfil"
+            style="@style/PerfilBotao"
+            android:text="Teste de interesses" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMensagens"
+            style="@style/PerfilBotao"
+            android:text="Comunicados e atendimento" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNotificacoes"
+            style="@style/PerfilBotao"
+            android:text="Novidades e avisos" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVoltarPerfil"
+            style="@style/PerfilBotao"
+            android:layout_marginTop="12dp"
+            android:text="@string/perfil_voltar"
+            android:textColor="@color/perfil_roxo"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/perfil_roxo"
+            app:strokeWidth="1dp" />
     </LinearLayout>
 </ScrollView>

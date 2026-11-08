@@ -1,4 +1,3 @@
-
 package com.example.app_proxima_etapa.api;
 
 import retrofit2.Call;
@@ -10,6 +9,9 @@ import retrofit2.http.POST;
 import java.util.List;
 
 public interface ApiService {
+    @GET("courses")
+    Call<JsonArray> buscarCursosDisponiveis();
+
 
     @GET("auth/me")
     Call<PerfilUsuario> consultarPerfil(@Header("Authorization") String authorization);

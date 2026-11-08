@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -51,5 +52,11 @@
             android:value="barcode_ui" />
 
 
+        <activity android:name=".recursos.CardAlunoActivity" android:exported="false" />
+        <activity android:name=".recursos.CertificadosActivity" android:exported="false" />
+        <activity android:name=".recursos.MensagensActivity" android:exported="false" />
+        <activity android:name=".recursos.AtendimentoActivity" android:exported="false" />
+        <activity android:name=".recursos.TestePerfilActivity" android:exported="false" />
+        <activity android:name=".recursos.NotificacoesActivity" android:exported="false" />
     </application>
 </manifest>

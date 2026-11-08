@@ -9,9 +9,6 @@ import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.*;
 import com.example.app_proxima_etapa.login.LoginActivity;
 import com.example.app_proxima_etapa.qrcode.QrCodeActivity;
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import java.util.UUID;
 import retrofit2.*;
 
  
@@ -28,6 +25,21 @@ public class PerfilActivity extends AppCompatActivity {
             Intent tela = new Intent(this, LeitorQrActivity.class);
             startActivity(tela);
         });
+        findViewById(R.id.btnCardAluno).setOnClickListener(v ->
+                startActivity(new Intent(this,
+                        com.example.app_proxima_etapa.recursos.CardAlunoActivity.class)));
+        findViewById(R.id.btnCertificados).setOnClickListener(v ->
+                startActivity(new Intent(this,
+                        com.example.app_proxima_etapa.recursos.CertificadosActivity.class)));
+        findViewById(R.id.btnTestePerfil).setOnClickListener(v ->
+                startActivity(new Intent(this,
+                        com.example.app_proxima_etapa.recursos.TestePerfilActivity.class)));
+        findViewById(R.id.btnMensagens).setOnClickListener(v ->
+                startActivity(new Intent(this,
+                        com.example.app_proxima_etapa.recursos.MensagensActivity.class)));
+        findViewById(R.id.btnNotificacoes).setOnClickListener(v ->
+                startActivity(new Intent(this,
+                        com.example.app_proxima_etapa.recursos.NotificacoesActivity.class)));
         carregar();
 
     }
@@ -47,6 +59,8 @@ public class PerfilActivity extends AppCompatActivity {
                 PerfilUsuario perfil = response.body();
                 ((TextView) findViewById(R.id.txtNomePerfil)).setText(perfil.getName());
                 ((TextView) findViewById(R.id.txtEmailPerfil)).setText(perfil.getEmail());
+                ((TextView) findViewById(R.id.txtCpfPerfil)).setText(formatarCpf(perfil.getCpf()));
+                ((TextView) findViewById(R.id.txtTelefonePerfil)).setText(formatarTelefone(perfil.getTelefone()));
                 String id = perfil.getId();
                 AuthSession.setAlunoId(id);
                 if (id != null && !id.isEmpty()) {
@@ -67,6 +81,46 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
     }
+    private String formatarCpf(String cpf) {
+        if (cpf == null || cpf.trim().isEmpty()) {
+            return getString(R.string.perfil_nao_informado);
+        }
+
+        String numeros = cpf.replaceAll("[^0-9]", "");
+
+        if (numeros.length() != 11) {
+            return getString(R.string.perfil_nao_informado);
+        }
+
+        return numeros.substring(0, 3) + "."
+                + numeros.substring(3, 6) + "."
+                + numeros.substring(6, 9) + "-"
+                + numeros.substring(9);
+    }
+
+    private String formatarTelefone(String telefone) {
+        if (telefone == null || telefone.trim().isEmpty()) {
+            return getString(R.string.perfil_nao_informado);
+        }
+
+        String numeros = telefone.replaceAll("[^0-9]", "");
+
+        if ((numeros.length() == 12 || numeros.length() == 13)
+                && numeros.startsWith("55")) {
+            numeros = numeros.substring(2);
+        }
+
+        if (numeros.length() != 10 && numeros.length() != 11) {
+            return getString(R.string.perfil_nao_informado);
+        }
+
+        int inicioFinal = numeros.length() - 4;
+
+        return "(" + numeros.substring(0, 2) + ") "
+                + numeros.substring(2, inicioFinal) + "-"
+                + numeros.substring(inicioFinal);
+    }
+
     private void sair() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

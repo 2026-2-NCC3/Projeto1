@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { normalizarCpf, cpfValido, contaBloqueada } = require('./recursos/validacoes');
 
 const app = express();
 app.use(express.json());
@@ -16,7 +17,7 @@ function verificarChave(req, res, next) {
   next();
 }
 
-function verificarToken(req, res, next) {
+async function verificarToken(req, res, next) {
   const autorizacao = req.headers.authorization;
 
   if (!autorizacao || !autorizacao.startsWith('Bearer ')) {
@@ -29,11 +30,26 @@ function verificarToken(req, res, next) {
 
   try {
     req.usuario = jwt.verify(token, process.env.JWT_SECRET);
-    next();
   } catch {
-    return res.status(401).json({
-      erro: 'Token inválido ou expirado.'
-    });
+    return res.status(401).json({ erro: 'Token inválido ou expirado.' });
+  }
+
+  try {
+    const { rows } = await pool.query(
+      `SELECT COALESCE(to_jsonb(u)->>'blacklist', 'false') AS bloqueado
+       FROM users u WHERE id = $1`,
+      [req.usuario.id]
+    );
+    if (!rows.length) {
+      return res.status(401).json({ erro: 'Usuário não encontrado. Entre novamente.' });
+    }
+    if (contaBloqueada(rows[0])) {
+      return res.status(403).json({ erro: 'Seu acesso está restrito. Entre em contato com a equipe.' });
+    }
+    next();
+  } catch (erro) {
+    console.error('Erro ao validar acesso:', erro.code || erro.name);
+    return res.status(503).json({ erro: 'Não foi possível verificar seu acesso. Tente novamente.' });
   }
 }
 
@@ -69,9 +85,9 @@ app.post('/auth/register', async (req, res) => {
       });
     }
 
-    if (typeof cpf !== 'string' || cpf.length !== 11) {
+    if (!cpfValido(cpf)) {
     return res.status(400).json({
-        erro: 'O CPF deve ter 11 números.'
+        erro: 'Informe um CPF válido.'
     });
   }
 
@@ -95,7 +111,7 @@ app.post('/auth/register', async (req, res) => {
       `INSERT INTO users (name, email, cpf, telefone, password_hash)
       VALUES ($1, $2, $3, $4, $5)
        RETURNING id, name, email, created_at`,
-     [name.trim(), emailNormalizado, cpf, telefone, passwordHash]
+     [name.trim(), emailNormalizado, normalizarCpf(cpf), telefone, passwordHash]
     );
 
     res.status(201).json({
@@ -130,7 +146,8 @@ app.post('/auth/login', async (req, res) => {
     const emailNormalizado = email.trim().toLowerCase();
 
     const resultado = await pool.query(
-      `SELECT id, name, email, password_hash
+      `SELECT id, name, email, password_hash,
+              COALESCE(to_jsonb(users)->>'blacklist', 'false') AS bloqueado
        FROM users
        WHERE email = $1`,
       [emailNormalizado]
@@ -152,6 +169,12 @@ app.post('/auth/login', async (req, res) => {
     if (!senhaCorreta) {
       return res.status(401).json({
         erro: 'E-mail ou senha inválidos.'
+      });
+    }
+
+    if (contaBloqueada(usuario)) {
+      return res.status(403).json({
+        erro: 'Seu acesso está restrito. Entre em contato com a equipe.'
       });
     }
 
@@ -447,6 +470,8 @@ app.post('/courses/:id/register', verificarToken, async (req, res) => {
         });
     }
 });
+
+require('./recursos/rotas')(app, pool, verificarToken, verificarChave);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

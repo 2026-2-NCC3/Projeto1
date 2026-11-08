@@ -79,7 +79,7 @@ public class TestePerfilActivity extends RecursoActivity {
                 enviar("me/teste-perfil", corpo, resultado -> {
                     respostasSalvas = null;
                     mostrarResultado(resultado.getAsJsonObject());
-                });
+                }, () -> concluir.setEnabled(true));
             });
         });
     }

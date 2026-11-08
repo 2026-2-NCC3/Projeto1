@@ -187,7 +187,7 @@ app.post('/auth/login', async (req, res) => {
 app.get('/auth/me', verificarToken, async (req, res) => {
   try {
     const resultado = await pool.query(
-      `SELECT id, name, email, created_at
+      `SELECT id, name, email, cpf, telefone, created_at
        FROM users
        WHERE id = $1`,
       [req.usuario.id]

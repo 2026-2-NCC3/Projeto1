@@ -8,6 +8,10 @@ public final class AuthErrors {
     private AuthErrors() {}
 
     public static String message(Response<?> response) {
+        return message(response, "Não foi possível concluir. Tente novamente mais tarde.");
+    }
+
+    public static String message(Response<?> response, String alternativa) {
         try (ResponseBody body = response.errorBody()) {
             if (body != null) {
                 String message = new JSONObject(body.string()).optString("erro", "");
@@ -16,6 +20,6 @@ public final class AuthErrors {
         } catch (Exception ignored) {
              
         }
-        return "Não foi possível concluir. Tente novamente mais tarde.";
+        return alternativa;
     }
 }

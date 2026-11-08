@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.AuthSession;
+import com.example.app_proxima_etapa.api.AuthErrors;
 import com.example.app_proxima_etapa.api.RecursosApi;
 import com.example.app_proxima_etapa.api.RetrofitClient;
 import com.example.app_proxima_etapa.login.LoginActivity;
@@ -51,11 +52,16 @@ public abstract class RecursoActivity extends AppCompatActivity {
     }
 
     protected void consultar(String caminho, Retorno retorno) {
-        executar(api().consultar(caminho, token()), retorno);
+        executar(api().consultar(caminho, token()), retorno, null);
     }
 
     protected void enviar(String caminho, JsonObject dados, Retorno retorno) {
-        executar(api().enviar(caminho, token(), dados), retorno);
+        enviar(caminho, dados, retorno, null);
+    }
+
+    protected void enviar(String caminho, JsonObject dados, Retorno retorno,
+                          Runnable aoFalhar) {
+        executar(api().enviar(caminho, token(), dados), retorno, aoFalhar);
     }
 
     private RecursosApi api() {
@@ -66,7 +72,7 @@ public abstract class RecursoActivity extends AppCompatActivity {
         return "Bearer " + AuthSession.getToken();
     }
 
-    private void executar(Call<JsonElement> chamada, Retorno retorno) {
+    private void executar(Call<JsonElement> chamada, Retorno retorno, Runnable aoFalhar) {
         status.setText("Aguarde...");
         atualizar.setEnabled(false);
         chamadas.add(chamada);
@@ -81,9 +87,11 @@ public abstract class RecursoActivity extends AppCompatActivity {
                     return;
                 }
                 if (!resposta.isSuccessful() || resposta.body() == null) {
-                    status.setText(resposta.code() == 404
-                            ? "Recurso ainda não disponível. Tente atualizar mais tarde."
-                            : "Não foi possível concluir. Confira os dados e tente novamente.");
+                    String alternativa = resposta.code() == 404
+                            ? "Este recurso ainda não foi publicado no servidor."
+                            : "Não foi possível concluir. Confira os dados e tente novamente.";
+                    status.setText(AuthErrors.message(resposta, alternativa));
+                    if (aoFalhar != null) aoFalhar.run();
                     return;
                 }
                 status.setText("");
@@ -96,6 +104,7 @@ public abstract class RecursoActivity extends AppCompatActivity {
                 if (call.isCanceled() || isFinishing() || isDestroyed()) return;
                 atualizar.setEnabled(true);
                 status.setText("Sem conexão com o servidor. Tente atualizar. Se você estava enviando, confira a lista antes de tentar novamente.");
+                if (aoFalhar != null) aoFalhar.run();
             }
         });
     }

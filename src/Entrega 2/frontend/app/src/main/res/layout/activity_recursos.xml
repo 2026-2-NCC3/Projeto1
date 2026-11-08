@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/perfil_fundo"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tituloRecurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityHeading="true"
+            android:textColor="@color/perfil_roxo"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/statusRecurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/perfil_texto_secundario"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/conteudoRecurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/atualizarRecurso"
+            style="@style/PerfilBotao"
+            android:layout_marginTop="16dp"
+            android:text="Atualizar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/voltarRecurso"
+            style="@style/PerfilBotao"
+            android:text="Voltar" />
+    </LinearLayout>
+</ScrollView>

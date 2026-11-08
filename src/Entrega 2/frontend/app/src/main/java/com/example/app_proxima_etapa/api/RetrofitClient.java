@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitClient {
 
-    private static final String BASE_URL = "http://10.0.2.2:3000/";
+    private static final String BASE_URL = "https://proxima-etapa-api-ncc3.onrender.com/";
     private static Retrofit retrofit;
 
     public static synchronized Retrofit getRetrofitInstance() {

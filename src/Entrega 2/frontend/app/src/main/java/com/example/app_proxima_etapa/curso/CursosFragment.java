@@ -43,7 +43,17 @@ public class CursosFragment extends Fragment {
         boolean meusCursos = getArguments() != null
                 && getArguments().getBoolean("meusCursos", false);
         TextView titulo = view.findViewById(R.id.txtTituloCursos);
-        titulo.setText(meusCursos ? "Meus cursos" : "Cursos Disponíveis");
+        titulo.setText(meusCursos ? R.string.cursos_meus_titulo : R.string.cursos_titulo);
+
+        TextView subtitulo = view.findViewById(R.id.txtSubtituloCursos);
+        subtitulo.setText(meusCursos
+                ? R.string.cursos_meus_subtitulo
+                : R.string.cursos_subtitulo);
+
+        TextView listaTitulo = view.findViewById(R.id.txtListaCursos);
+        listaTitulo.setText(meusCursos
+                ? R.string.cursos_meus_lista_titulo
+                : R.string.cursos_lista_titulo);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

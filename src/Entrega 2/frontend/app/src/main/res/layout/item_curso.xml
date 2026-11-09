@@ -1,54 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="#FFFFFF"
-    android:elevation="4dp"
-    android:padding="16dp">
+    android:layout_marginBottom="14dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="1dp"
+    app:strokeColor="@color/perfil_borda"
+    app:strokeWidth="1dp">
 
-    <ImageView
-        android:id="@+id/imgCursoIcone"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/img_curso_online"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtNomeCurso"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Nome do Curso"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnDetalhes"
-        app:layout_constraintStart_toEndOf="@+id/imgCursoIcone"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/txtCargaHoraria"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="14dp"
-        android:text="Total de vagas: --"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnDetalhes"
-        app:layout_constraintStart_toEndOf="@+id/imgCursoIcone"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeCurso" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fundoIconeCurso"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:importantForAccessibility="no"
+            app:cardBackgroundColor="@color/cursos_roxo_claro"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnDetalhes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Detalhes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imgCursoIcone"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_curso_catalogo" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/txtNomeCurso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:textColor="@color/perfil_texto"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fundoIconeCurso"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Introdução à Programação" />
+
+        <TextView
+            android:id="@+id/txtCargaHoraria"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/perfil_texto_secundario"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtNomeCurso"
+            app:layout_constraintTop_toBottomOf="@id/txtNomeCurso"
+            tools:text="Total de vagas: 30" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/baseDadosCurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="fundoIconeCurso,txtCargaHoraria" />
+
+        <View
+            android:id="@+id/divisorCurso"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/perfil_borda"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/baseDadosCurso" />
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="4dp"
+            android:background="@color/perfil_verde"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/btnDetalhes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnDetalhes" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDetalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:text="@string/cursos_detalhes"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/perfil_roxo"
+            app:cornerRadius="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divisorCurso" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

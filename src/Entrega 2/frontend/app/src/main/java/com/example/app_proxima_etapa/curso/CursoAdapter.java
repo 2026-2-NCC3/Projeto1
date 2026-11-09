@@ -40,8 +40,11 @@ public class CursoAdapter extends RecyclerView.Adapter<CursoAdapter.CursoViewHol
 
          
         holder.txtNomeCurso.setText(curso.getNome());
-        holder.txtCargaHoraria.setText("Total de vagas: " + curso.getTotalVagas());
-        holder.imgCursoIcone.setImageResource(curso.getImagemResId());
+        holder.txtCargaHoraria.setText(context.getString(
+                R.string.cursos_total_vagas,
+                curso.getTotalVagas()
+        ));
+        holder.imgCursoIcone.setImageResource(R.drawable.ic_curso_catalogo);
 
          
         holder.btnDetalhes.setOnClickListener(v -> {

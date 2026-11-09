@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cursos_fundo">#F5F2FA</color>
+    <color name="cursos_roxo_claro">#EDE5F8</color>
+    <color name="cursos_roxo_final">#7545B4</color>
+    <color name="cursos_texto_cabecalho">#F0E8FC</color>
+
+    <string name="cursos_marca">PRÓXIMA ETAPA</string>
+    <string name="cursos_titulo">Cursos disponíveis</string>
+    <string name="cursos_meus_titulo">Meus cursos</string>
+    <string name="cursos_subtitulo">Descubra novas possibilidades para o seu futuro.</string>
+    <string name="cursos_meus_subtitulo">Continue aprendendo e acompanhe sua jornada.</string>
+    <string name="cursos_lista_titulo">Para aprender e crescer</string>
+    <string name="cursos_meus_lista_titulo">Sua jornada de aprendizado</string>
+    <string name="cursos_atualizar">Atualizar</string>
+    <string name="cursos_detalhes">Ver detalhes</string>
+    <string name="cursos_total_vagas">Total de vagas: %1$d</string>
+</resources>

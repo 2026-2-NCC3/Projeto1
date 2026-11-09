@@ -20,6 +20,7 @@ public class DetalhesActivity extends AppCompatActivity {
         ImageView imgCurso = findViewById(R.id.imgDetalheCurso);
         TextView txtNome = findViewById(R.id.txtDetalheNome);
         TextView txtCarga = findViewById(R.id.txtDetalheCargaHoraria);
+        TextView txtDescricao = findViewById(R.id.txtDetalheDescricao);
         Button btnVoltar = findViewById(R.id.btnVoltar);
         btnInscrever = findViewById(R.id.btnInscrever);
         btnInscrever.setEnabled(false);
@@ -28,6 +29,7 @@ public class DetalhesActivity extends AppCompatActivity {
                     .getSerializableExtra("CURSO_SELECIONADO");
             if (curso != null) {
                 txtNome.setText(curso.getNome());
+                txtDescricao.setText(obterDescricao(curso));
                 txtCarga.setText(
                         "Total de vagas: " + curso.getTotalVagas()
                 );
@@ -40,6 +42,26 @@ public class DetalhesActivity extends AppCompatActivity {
         }
         btnVoltar.setOnClickListener(v -> finish());
     }
+    private String obterDescricao(Curso curso) {
+        String nome = curso.getNome() == null ? "" : curso.getNome().trim();
+
+        if ("Introdução à Programação".equalsIgnoreCase(nome)) {
+            return getString(R.string.detalhes_descricao_programacao);
+        }
+        if ("Oficina de Currículo".equalsIgnoreCase(nome)) {
+            return getString(R.string.detalhes_descricao_curriculo);
+        }
+        if ("Preparação para o Enem".equalsIgnoreCase(nome)) {
+            return getString(R.string.detalhes_descricao_enem);
+        }
+
+        String descricao = curso.getDescricao();
+        if (descricao == null || descricao.trim().isEmpty()) {
+            return getString(R.string.detalhes_descricao_indisponivel);
+        }
+        return descricao;
+    }
+
     private void inscreverCurso(Curso curso) {
         String token = AuthSession.getToken();
         if (token == null || token.isEmpty()) {

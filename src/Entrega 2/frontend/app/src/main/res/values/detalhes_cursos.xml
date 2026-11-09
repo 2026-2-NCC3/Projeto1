@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detalhes_sobre_curso">Sobre o curso</string>
+    <string name="detalhes_descricao_programacao">Curso básico com temas introdutórios e atividades iniciais focadas na programação, abordando conteúdo prático e teórico.</string>
+    <string name="detalhes_descricao_curriculo">Curso focado em análise e estruturação/reestruturação de currículo, focando nas principais tendências e índices de contratação do mercado de trabalho.</string>
+    <string name="detalhes_descricao_enem">Curso com o objetivo central em preparar o aluno/candidato para a prova do Enem abordando questões do Ensino Médio, questões de edições anteriores, técnicas de ensino e estudo, metodologias ágeis de ensino e técnicas de desenvolvimento de redação.</string>
+    <string name="detalhes_descricao_indisponivel">A descrição deste curso ainda não foi informada.</string>
+</resources>

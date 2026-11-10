@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/perfil_fundo"
@@ -14,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Leitor de QR Code"
+            android:text="Registrar presença"
             android:textColor="@color/perfil_roxo"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -23,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:labelFor="@id/spinnerCursoPresenca"
             android:text="Curso da atividade"
             android:textColor="@color/perfil_texto"
             android:textSize="16sp" />
@@ -45,6 +45,29 @@
             android:text="Escanear QR Code" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Ou digite o código do aluno"
+            android:textColor="@color/perfil_texto"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/campoCodigoAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="ALUNO-UUID"
+            android:inputType="text"
+            android:singleLine="true"
+            android:minHeight="48dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegistrarManual"
+            style="@style/PerfilBotao"
+            android:text="Registrar manualmente" />
+
+        <TextView
             android:id="@+id/txtResultado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="O registro de presença exige uma conta de responsável autorizada."
+            android:text="É necessário entrar com uma conta de responsável autorizada."
             android:textColor="@color/perfil_texto_secundario"
             android:textSize="14sp" />
 
@@ -67,5 +90,6 @@
             style="@style/PerfilBotao"
             android:layout_marginTop="20dp"
             android:text="Voltar" />
+
     </LinearLayout>
 </ScrollView>

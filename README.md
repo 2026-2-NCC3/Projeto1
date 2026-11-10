@@ -1012,3 +1012,14 @@ A equipe agradece:
 Desenvolvido para o Projeto Interdisciplinar do 3º semestre de Ciência da Computação da FECAP.
 
 São Paulo, 2026.
+
+
+## Diagrama de Classes
+
+Documentação da segunda entrega de Programação Orientada a Objetos, baseada no código implementado em `src/Entrega 2`:
+
+- [Diagrama principal de domínio (PlantUML)](docs/diagrama-classes.puml)
+- [Diagramas técnicos por módulo (PlantUML)](docs/diagrama-classes-tecnico.puml)
+- [Análise, inventário de classes, limitações e instruções de geração](docs/ANALISE-DIAGRAMA.md)
+
+O arquivo técnico contém seis vistas para facilitar a leitura. Para gerar o PNG, com PlantUML disponível, execute `plantuml -charset UTF-8 -tpng docs/diagrama-classes.puml docs/diagrama-classes-tecnico.puml`. As imagens não estão versionadas nesta documentação porque o renderizador não estava disponível no ambiente de análise.

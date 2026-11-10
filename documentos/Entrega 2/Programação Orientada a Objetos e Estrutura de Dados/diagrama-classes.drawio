@@ -1,0 +1,311 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="SSojdAmJ81ulTapsTF2o">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LXiHull2MoBtGEK9K6kJ-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Aluno" vertex="1">
+          <mxGeometry height="540" width="250" x="-90" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-4" parent="LXiHull2MoBtGEK9K6kJ-2" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;- id: String&lt;/div&gt;&lt;div&gt;- ra: String&lt;/div&gt;&lt;div&gt;- nome: String&lt;/div&gt;&lt;div&gt;- email: String&lt;/div&gt;&lt;div&gt;- cpf: String&lt;/div&gt;&lt;div&gt;- telefone: String&lt;/div&gt;&lt;div&gt;- faculdade: String&lt;/div&gt;&lt;div&gt;- cursoFaculdade: String&lt;/div&gt;&lt;div&gt;- status: StatusAluno&lt;/div&gt;&lt;div&gt;- codigoQrCode: String&lt;/div&gt;&lt;div&gt;- resultadoDisc: String&lt;/div&gt;&lt;div&gt;- progressoGeral: double&lt;/div&gt;&lt;div&gt;- quantidadeFaltas: int&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- bloqueado: boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="250" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-5" parent="LXiHull2MoBtGEK9K6kJ-2" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ podeAcessar(): boolean&lt;/div&gt;&lt;div&gt;+ estaSuspenso(): boolean&lt;/div&gt;&lt;div&gt;+ atualizarPerfil(): void&lt;/div&gt;&lt;div&gt;+ consultarProgresso(): double&lt;/div&gt;&lt;div&gt;+ consultarResultadoDisc(): String&lt;/div&gt;&lt;div&gt;+ adicionarFalta(): void&lt;/div&gt;&lt;div&gt;+ desbloquear(): void&lt;/div&gt;&lt;div&gt;+ getId(): String&lt;/div&gt;&lt;div&gt;+ getRa(): String&lt;/div&gt;&lt;div&gt;+ getNome(): String&lt;/div&gt;&lt;div&gt;+ getEmail(): String&lt;/div&gt;&lt;div&gt;+ getStatus(): StatusAluno&lt;/div&gt;&lt;div&gt;+ getCodigoQrCode(): String&lt;/div&gt;&lt;div&gt;+ getQuantidadeFaltas(): int&lt;/div&gt;&lt;div&gt;+ isBloqueado(): boolean&lt;/div&gt;&lt;div&gt;+ setNome(nome: String): void&lt;/div&gt;&lt;div&gt;+ setEmail(email: String): void&lt;/div&gt;&lt;div&gt;+ setStatus(status: StatusAluno): void&lt;/div&gt;&lt;div&gt;+ setResultadoDisc(resultado: String): void&lt;/div&gt;&lt;div&gt;+ setProgressoGeral(progresso: double): void&lt;/div&gt;&lt;div&gt;+ toString(): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="250" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="LXiHull2MoBtGEK9K6kJ-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="Inscricao" vertex="1">
+          <mxGeometry height="320" width="260" x="280" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-8" parent="LXiHull2MoBtGEK9K6kJ-3" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;- id: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- aluno: Aluno&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- curso: Curso&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- dataInscricao: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- status: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- dataPresenca: String&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;- pontosGanhos: int&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="260" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-10" parent="LXiHull2MoBtGEK9K6kJ-3" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;+ confirmar(): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ cancelar(): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ estaAtiva(): boolean&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getId(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getAluno(): Aluno&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getCurso(): Curso&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getDataInscricao(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getStatus(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getDataPresenca(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getPontosGanhos(): int&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setStatus(status: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setDataPresenca(dataPresenca: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setPontosGanhos(pontosGanhos: int): void&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="260" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="LXiHull2MoBtGEK9K6kJ-4" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Atividade" vertex="1">
+          <mxGeometry height="360" width="200" x="640" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-15" parent="LXiHull2MoBtGEK9K6kJ-4" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;- id: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- titulo: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- descricao: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- dataHora: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- local: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- tipo: TipoAtividade&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- curso: Curso&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="200" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-16" parent="LXiHull2MoBtGEK9K6kJ-4" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;+ alterarDataHora(dataHora: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ consultarInformacoes(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getId(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getTitulo(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getDescricao(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getDataHora(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getLocal(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getTipo(): TipoAtividade&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getCurso(): Curso&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setTitulo(titulo: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setDescricao(descricao: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setLocal(local: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setTipo(tipo: TipoAtividade): void&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;+ setCurso(curso: Curso): void&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="200" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-38" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-132" connectable="0" parent="76qp3WcUZefzMGR9jUzo-38" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;registra aluno&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0214" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Presenca" vertex="1">
+          <mxGeometry height="260" width="220" x="280" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-12" parent="76qp3WcUZefzMGR9jUzo-1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;- id: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- aluno: Aluno&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- atividade: Atividade&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- dataHoraRegistro: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- codigoValidacao: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="220" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-40" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;dashed=1;" target="76qp3WcUZefzMGR9jUzo-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="Curso" vertex="1">
+          <mxGeometry height="690" width="230" x="1090" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-6" parent="76qp3WcUZefzMGR9jUzo-2" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;- serialVersionUID: long {static}&lt;/div&gt;&lt;div&gt;- id: String&lt;/div&gt;&lt;div&gt;- titulo: String&lt;/div&gt;&lt;div&gt;- descricao: String&lt;/div&gt;&lt;div&gt;- cargaHoraria: int&lt;/div&gt;&lt;div&gt;- local: String&lt;/div&gt;&lt;div&gt;- bannerUrl: String&lt;/div&gt;&lt;div&gt;- universidadeId: String&lt;/div&gt;&lt;div&gt;- totalVagas: int&lt;/div&gt;&lt;div&gt;- vagasDisponiveis: int&lt;/div&gt;&lt;div&gt;- pontosConcedidos: int&lt;/div&gt;&lt;div&gt;- possuiCertificado: boolean&lt;/div&gt;&lt;div&gt;- categoria: String&lt;/div&gt;&lt;div&gt;- dataCurso: String&lt;/div&gt;&lt;div&gt;- ativo: boolean&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- imagemResId: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="230" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-7" parent="76qp3WcUZefzMGR9jUzo-2" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ atualizarDados(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; titulo: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; descricao: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; cargaHoraria: int,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; local: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; categoria: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): void&lt;/div&gt;&lt;div&gt;+ possuiVagas(): boolean&lt;/div&gt;&lt;div&gt;+ ocuparVaga(): void&lt;/div&gt;&lt;div&gt;+ liberarVaga(): void&lt;/div&gt;&lt;div&gt;+ getId(): String&lt;/div&gt;&lt;div&gt;+ getTitulo(): String&lt;/div&gt;&lt;div&gt;+ getNome(): String&lt;/div&gt;&lt;div&gt;+ getDescricao(): String&lt;/div&gt;&lt;div&gt;+ getCargaHoraria(): int&lt;/div&gt;&lt;div&gt;+ getLocal(): String&lt;/div&gt;&lt;div&gt;+ getTotalVagas(): int&lt;/div&gt;&lt;div&gt;+ getVagasDisponiveis(): int&lt;/div&gt;&lt;div&gt;+ getCategoria(): String&lt;/div&gt;&lt;div&gt;+ isAtivo(): boolean&lt;/div&gt;&lt;div&gt;+ setTitulo(titulo: String): void&lt;/div&gt;&lt;div&gt;+ setDescricao(descricao: String): void&lt;/div&gt;&lt;div&gt;+ setCargaHoraria(cargaHoraria: int): void&lt;/div&gt;&lt;div&gt;+ setLocal(local: String): void&lt;/div&gt;&lt;div&gt;+ setTotalVagas(totalVagas: int): void&lt;/div&gt;&lt;div&gt;+ setVagasDisponiveis(vagas: int): void&lt;/div&gt;&lt;div&gt;+ setCategoria(categoria: String): void&lt;/div&gt;&lt;div&gt;+ setAtivo(ativo: boolean): void&lt;/div&gt;&lt;div&gt;+ toString(): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="430" width="230" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span&gt;+ validarEntrada(): boolean&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ consultarRegistro(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getId(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getAluno(): Aluno&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getAtividade(): Atividade&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getDataHoraRegistro(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ getCodigoValidacao(): String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+setDataHoraRegistro(dataHoraRegistro: String): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;+ setCodigoValidacao(codigoValidacao: String): void&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="220" x="280" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-19" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;StatusAluno&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="150" x="-350" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-20" parent="76qp3WcUZefzMGR9jUzo-19" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;ATIVO&lt;/div&gt;&lt;div&gt;SUSPENSO&lt;/div&gt;&lt;div&gt;BLOQUEADO&lt;/div&gt;&lt;div style=&quot;&quot;&gt;INATIVO&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="150" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-21" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;TipoAtividade&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="150" x="890" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-22" parent="76qp3WcUZefzMGR9jUzo-21" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;AULA&lt;/div&gt;&lt;div&gt;PALESTRA&lt;/div&gt;&lt;div&gt;OFICINA&lt;/div&gt;&lt;div&gt;EVENTO&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="150" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-26" edge="1" parent="1" source="LXiHull2MoBtGEK9K6kJ-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.586;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-6">
+          <mxGeometry relative="1" x="0.0282" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-130" connectable="0" parent="76qp3WcUZefzMGR9jUzo-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;refere-se&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0068" y="1" as="geometry">
+            <mxPoint x="14" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-27" edge="1" parent="1" source="LXiHull2MoBtGEK9K6kJ-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.999;entryY=0.666;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-129" connectable="0" parent="76qp3WcUZefzMGR9jUzo-27" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;pertence&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0154" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-35" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;exitX=0.003;exitY=0.168;exitDx=0;exitDy=0;exitPerimeter=0;" target="76qp3WcUZefzMGR9jUzo-19">
+          <mxGeometry relative="1" x="0.0995" as="geometry">
+            <mxPoint x="-100" y="175" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-37" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.429;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;entryPerimeter=0;exitX=1.002;exitY=0.469;exitDx=0;exitDy=0;exitPerimeter=0;" target="76qp3WcUZefzMGR9jUzo-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-39" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span&gt;&lt;div&gt;&lt;span&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;Serializable&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="35" width="120" x="1145" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-41" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="60" x="230" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-42" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="160" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-44" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="540" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-47" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="1070" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-48" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="240" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-65" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-51">
+          <mxGeometry relative="1" x="-0.0913" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="780" />
+              <mxPoint x="420" y="840" />
+              <mxPoint x="740" y="840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-134" connectable="0" parent="76qp3WcUZefzMGR9jUzo-65" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;registra atividade&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0757" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-49" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="440" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-50" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="160" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-51" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="740" y="725" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-58" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="1200" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-59" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="1300" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-67" edge="1" parent="1" source="LXiHull2MoBtGEK9K6kJ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.001;entryY=0.372;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-135" connectable="0" parent="76qp3WcUZefzMGR9jUzo-67" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;pertence&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0409" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-68" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="1070" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-69" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="840" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-87" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;" target="LXiHull2MoBtGEK9K6kJ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-125" connectable="0" parent="76qp3WcUZefzMGR9jUzo-87" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;gerencia&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0944" y="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-70" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="AlunoRepository" vertex="1">
+          <mxGeometry height="270" width="250" x="-90" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-71" parent="76qp3WcUZefzMGR9jUzo-70" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- alunos: List&amp;lt;Aluno&amp;gt;" vertex="1">
+          <mxGeometry height="20" width="250" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-73" parent="76qp3WcUZefzMGR9jUzo-70" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ AlunoRepository()&lt;/div&gt;&lt;div&gt;+ cadastrar(aluno: Aluno): boolean&lt;/div&gt;&lt;div&gt;+ listarTodos(): List&amp;lt;Aluno&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorId(id: String): Aluno&lt;/div&gt;&lt;div&gt;+ buscarPorRa(ra: String): Aluno&lt;/div&gt;&lt;div&gt;+ buscarPorNome(nome: String): List&amp;lt;Aluno&amp;gt;&lt;/div&gt;&lt;div&gt;+ editar(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; id: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novoNome: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novoEmail: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ remover(id: String): boolean&lt;/div&gt;&lt;div&gt;+ listarOrdenadosPorNome(): List&amp;lt;Aluno&amp;gt;&lt;/div&gt;&lt;div&gt;+ quantidadeDeAlunos(): int&lt;/div&gt;&lt;div&gt;+ estaVazio(): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="230" width="250" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-90" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;" target="76qp3WcUZefzMGR9jUzo-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-126" connectable="0" parent="76qp3WcUZefzMGR9jUzo-90" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;gerencia&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0652" y="-1" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-74" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="CursoRepository" vertex="1">
+          <mxGeometry height="290" width="240" x="1085" y="899" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-75" parent="76qp3WcUZefzMGR9jUzo-74" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- cursos: List&amp;lt;Curso&amp;gt;" vertex="1">
+          <mxGeometry height="20" width="240" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-76" parent="76qp3WcUZefzMGR9jUzo-74" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ CursoRepository()&lt;/div&gt;&lt;div&gt;+ cadastrar(curso: Curso): boolean&lt;/div&gt;&lt;div&gt;+ listarTodos(): List&amp;lt;Curso&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorId(id: String): Curso&lt;/div&gt;&lt;div&gt;+ buscarPorTitulo(titulo: String): List&amp;lt;Curso&amp;gt;&lt;/div&gt;&lt;div&gt;+ editar(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; id: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novoTitulo: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novaDescricao: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novaCargaHoraria: int,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novoLocal: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novaCategoria: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ remover(id: String): boolean&lt;/div&gt;&lt;div&gt;+ listarOrdenadosPorTitulo(): List&amp;lt;Curso&amp;gt;&lt;/div&gt;&lt;div&gt;+ quantidadeDeCursos(): int&lt;/div&gt;&lt;div&gt;+ estaVazio(): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="240" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-93" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;" target="LXiHull2MoBtGEK9K6kJ-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-127" connectable="0" parent="76qp3WcUZefzMGR9jUzo-93" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;gerencia&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0329" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-78" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;font-weight: 400; text-align: start; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;InscricaoRepository&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="230" x="295" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-79" parent="76qp3WcUZefzMGR9jUzo-78" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- inscricoes: List&amp;lt;Inscricao&amp;gt;" vertex="1">
+          <mxGeometry height="20" width="230" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-80" parent="76qp3WcUZefzMGR9jUzo-78" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ InscricaoRepository()&lt;/div&gt;&lt;div&gt;+ cadastrar(inscricao: Inscricao): boolean&lt;/div&gt;&lt;div&gt;+ listarTodas(): List&amp;lt;Inscricao&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorId(id: String): Inscricao&lt;/div&gt;&lt;div&gt;+ buscarPorAluno(alunoId: String): List&amp;lt;Inscricao&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorCurso(cursoId: String): List&amp;lt;Inscricao&amp;gt;&lt;/div&gt;&lt;div&gt;+ alunoJaInscrito(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; aluno: Aluno,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; curso: Curso&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ cancelar(id: String): boolean&lt;/div&gt;&lt;div&gt;+ confirmar(id: String): boolean&lt;/div&gt;&lt;div&gt;+ remover(id: String): boolean&lt;/div&gt;&lt;div&gt;+ quantidadeDeInscricoes(): int&lt;/div&gt;&lt;div&gt;+ estaVazio(): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="230" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-101" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;entryX=0.44;entryY=0.999;entryDx=0;entryDy=0;entryPerimeter=0;" target="76qp3WcUZefzMGR9jUzo-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="376.8" y="860" />
+              <mxPoint x="376.8" y="860" />
+            </Array>
+            <mxPoint x="360" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-128" connectable="0" parent="76qp3WcUZefzMGR9jUzo-101" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;gerencia&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0103" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-81" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PresencaRepository" vertex="1">
+          <mxGeometry height="330" width="230" x="275" y="879" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-82" parent="76qp3WcUZefzMGR9jUzo-81" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- presencas: List&amp;lt;Presenca&amp;gt;" vertex="1">
+          <mxGeometry height="20" width="230" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-83" parent="76qp3WcUZefzMGR9jUzo-81" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ PresencaRepository()&lt;/div&gt;&lt;div&gt;+ cadastrar(presenca: Presenca): boolean&lt;/div&gt;&lt;div&gt;+ listarTodas(): List&amp;lt;Presenca&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorId(id: String): Presenca&lt;/div&gt;&lt;div&gt;+ buscarPorAluno(alunoId: String): List&amp;lt;Presenca&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarPorAtividade(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; atividadeId: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): List&amp;lt;Presenca&amp;gt;&lt;/div&gt;&lt;div&gt;+ presencaJaRegistrada(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; aluno: Aluno,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; atividade: Atividade&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ editarCodigoValidacao(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; id: String,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; novoCodigo: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ remover(id: String): boolean&lt;/div&gt;&lt;div&gt;+ quantidadeDePresencas(): int&lt;/div&gt;&lt;div&gt;+ estaVazio(): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="230" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-88" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="40" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-89" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="40" y="725" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-91" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="1210" y="869" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-92" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="1201" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-94" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="414" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-95" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="60" x="400" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-97" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...*" vertex="1">
+          <mxGeometry height="30" width="40" x="374" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-98" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="380" y="849" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-102" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="InscricaoService" vertex="1">
+          <mxGeometry height="260" width="230" x="-60" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-105" parent="76qp3WcUZefzMGR9jUzo-102" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ InscricaoService(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; inscricaoRepository: InscricaoRepository&lt;/div&gt;&lt;div&gt;&amp;nbsp; )&lt;/div&gt;&lt;div&gt;+ realizarInscricao(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; inscricao: Inscricao&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ cancelarInscricao(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; inscricaoId: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ alunoPodeSeInscrever(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; aluno: Aluno,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; curso: Curso&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="230" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-103" parent="76qp3WcUZefzMGR9jUzo-102" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- inscricaoRepository: InscricaoRepository" vertex="1">
+          <mxGeometry height="30" width="230" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-106" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;entryX=0;entryY=0.361;entryDx=0;entryDy=0;entryPerimeter=0;" target="76qp3WcUZefzMGR9jUzo-80">
+          <mxGeometry relative="1" x="-0.0423" as="geometry">
+            <mxPoint x="290" y="-130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-123" connectable="0" parent="76qp3WcUZefzMGR9jUzo-106" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;utiliza&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.1014" as="geometry">
+            <mxPoint x="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-107" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="170" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-108" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="275" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-113" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PresencaService" vertex="1">
+          <mxGeometry height="300" width="240" x="620" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-114" parent="76qp3WcUZefzMGR9jUzo-113" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;+ PresencaService(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; presencaRepository: PresencaRepository&lt;/div&gt;&lt;div&gt;&amp;nbsp; )&lt;/div&gt;&lt;div&gt;+ registrarPresenca(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; presenca: Presenca&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ validarQrCode(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; aluno: Aluno,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; codigoQrCode: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ podeRegistrarEntrada(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; aluno: Aluno,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; atividade: Atividade&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;&lt;div&gt;+ removerPresenca(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; presencaId: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; ): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="240" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-115" parent="76qp3WcUZefzMGR9jUzo-113" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="- presencaRepository: PresencaRepository" vertex="1">
+          <mxGeometry height="30" width="240" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-120" edge="1" parent="1" source="76qp3WcUZefzMGR9jUzo-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;entryX=1.005;entryY=0.469;entryDx=0;entryDy=0;entryPerimeter=0;" target="76qp3WcUZefzMGR9jUzo-83">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="1055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-124" connectable="0" parent="76qp3WcUZefzMGR9jUzo-120" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=1;defaultLabelBackgroundColor=page;" value="&lt;div style=&quot;text-align: start; white-space: normal; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;utiliza&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0807" y="2" as="geometry">
+            <mxPoint x="4" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-121" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="505" y="1025" as="geometry" />
+        </mxCell>
+        <mxCell id="76qp3WcUZefzMGR9jUzo-122" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="600" y="1025" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

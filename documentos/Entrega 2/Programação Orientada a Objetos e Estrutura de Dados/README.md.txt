@@ -55,7 +55,7 @@ DIAGRAMA DE CLASSES
 O diagrama apresenta as principais classes da Entrega 2, incluindo as entidades do domínio, as enumerações, os repositórios em memória, os serviços e seus relacionamentos.
 
 Arquivo do diagrama:
-docs/diagrama-classes.png
+documentos/entrega-2/Programação Orientada a Objetos e Estrutura de Dados/diagrama-classes.drawio
 
 O diagrama considera as classes implementadas nos pacotes model, repository e service. Os relacionamentos e as multiplicidades devem corresponder às referências, às coleções e às regras encontradas no código-fonte.
 

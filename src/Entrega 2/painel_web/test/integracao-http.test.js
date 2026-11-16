@@ -1,0 +1,41 @@
+const {test} = require('node:test');
+const assert = require('node:assert/strict');
+process.env.NODE_ENV = 'test';
+process.env.ADMIN_EMAIL = 'integration@example.test';
+process.env.ADMIN_PASSWORD = 'integration-test-password';
+process.env.APP_API_URL = 'https://backend-integration.invalid';
+process.env.APP_ADMIN_KEY = 'fake-admin';
+const {server} = require('../server');
+
+test('HTTP integrado exige login e cabeçalho de escrita, encaminha dados e fornece QR',async t=>{
+    const original=global.fetch;
+    const calls=[];
+    global.fetch=async(input,options)=>{
+        const url=new URL(input);
+        if(url.hostname==='127.0.0.1')return original(input,options);
+        assert.equal(url.origin,'https://backend-integration.invalid');
+        assert.equal(options.headers['x-admin-key'],'fake-admin');
+        calls.push({path:url.pathname,method:options.method,body:options.body});
+        return Response.json(url.pathname.endsWith('/presencas')?{confirmado:true}:url.pathname==='/admin/encontros'?[]:{id:url.pathname.split('/').at(-1)}, {status:options.method==='POST'?201:200});
+    };
+    await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+    t.after(async()=>{global.fetch=original;await new Promise(resolve=>server.close(resolve));});
+    const base='http://127.0.0.1:'+server.address().port;
+    assert.equal((await original(base+'/api/integracao/encontros')).status,401);
+    assert.equal(calls.length,0);
+    const login=await original(base+'/api/login',{method:'POST',headers:{'Content-Type':'application/json','X-Panel-Request':'1'},body:JSON.stringify({email:process.env.ADMIN_EMAIL,password:process.env.ADMIN_PASSWORD})});
+    const cookie=login.headers.get('set-cookie').split(';')[0];
+    assert.equal(login.status,200);
+    assert.equal((await original(base+'/api/integracao/encontros',{headers:{Cookie:cookie}})).status,200);
+    assert.equal((await original(base+'/api/integracao/encontros',{method:'POST',headers:{Cookie:cookie}})).status,403);
+    const id='22222222-2222-4222-8222-222222222222';
+    const write=await original(base+`/api/integracao/encontros/${id}/presencas`,{method:'POST',headers:{Cookie:cookie,'Content-Type':'application/json','X-Panel-Request':'1'},body:JSON.stringify({aluno_id:'11111111-1111-4111-8111-111111111111'})});
+    assert.equal(write.status,201);
+    assert.equal((await write.json()).confirmado,true);
+    assert.equal(calls.at(-1).path,`/admin/encontros/${id}/presencas`);
+    const qr=await original(base+`/api/integracao/qr?id=${id}`,{headers:{Cookie:cookie}});
+    assert.equal(qr.status,200);assert.match(await qr.text(),/^<svg/);
+    const invalid=await original(base+'/api/integracao/encontros/nope/presencas',{method:'POST',headers:{Cookie:cookie,'X-Panel-Request':'1'}});
+    assert.equal(invalid.status,404);
+    const page=await original(base+'/integracao.html');assert.equal(page.status,200);
+});

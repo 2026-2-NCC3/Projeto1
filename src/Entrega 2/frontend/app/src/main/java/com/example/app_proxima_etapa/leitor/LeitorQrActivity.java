@@ -1,5 +1,5 @@
-
 package com.example.app_proxima_etapa.leitor;
+
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -8,231 +8,166 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.app_proxima_etapa.R;
 import com.example.app_proxima_etapa.api.*;
-import com.example.app_proxima_etapa.storage.*;
+import com.example.app_proxima_etapa.service.CodigoEncontro;
+import com.example.app_proxima_etapa.storage.FilaEncontros;
 import com.google.gson.*;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 import java.util.ArrayList;
 import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import retrofit2.Response;
 
 public class LeitorQrActivity extends AppCompatActivity {
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final List<String> ids = new ArrayList<>();
     private TextView resultado;
-    private Spinner seletorCurso;
-    private EditText campoCodigoAluno;
-    private List<String> idsCursos = new ArrayList<>();
-    private Call<JsonArray> consultaCursos;
-    private String cursoSalvo;
+    private Spinner seletor;
+    private EditText codigo;
     private ApiService api;
+    private String dono;
+    private String token;
+    private boolean ocupado;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Override protected void onCreate(Bundle state) {
+        super.onCreate(state);
         setContentView(R.layout.activity_leitor_qr);
         resultado = findViewById(R.id.txtResultado);
-        seletorCurso = findViewById(R.id.spinnerCursoPresenca);
-        campoCodigoAluno = findViewById(R.id.campoCodigoAluno);
+        seletor = findViewById(R.id.spinnerCursoPresenca);
+        codigo = findViewById(R.id.campoCodigoAluno);
         api = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-
-        if (savedInstanceState != null) {
-            cursoSalvo = savedInstanceState.getString("curso");
-        }
-
-        findViewById(R.id.btnLerQr).setEnabled(false);
-        findViewById(R.id.btnRegistrarManual).setEnabled(false);
-        findViewById(R.id.btnAtualizarCursosLeitor).setOnClickListener(v -> carregarCursos());
-        findViewById(R.id.btnLerQr).setOnClickListener(v -> {
-            GmsBarcodeScanning.getClient(this).startScan()
-                    .addOnSuccessListener(qr -> registrarPresenca(qr.getRawValue()))
-                    .addOnFailureListener(erro -> resultado.setText("Erro ao ler QR Code."));
-        });
-        findViewById(R.id.btnRegistrarManual).setOnClickListener(v -> {
-            String codigo = campoCodigoAluno.getText().toString().trim();
-            registrarPresenca(codigo);
-        });
+        dono = AuthSession.getAlunoId();
+        token = AuthSession.getToken();
         findViewById(R.id.btnVoltarLeitor).setOnClickListener(v -> finish());
-        carregarCursos();
-        SincronizadorPresencas.sincronizar(this);
+        if (dono == null || token == null) {
+            resultado.setText("Abra o perfil e entre novamente para registrar presença.");
+            habilitar(false);
+            return;
+        }
+        findViewById(R.id.btnLerQr).setOnClickListener(v -> {
+            if (ocupado) return;
+            GmsBarcodeScanning.getClient(this).startScan()
+                    .addOnSuccessListener(qr -> registrar(qr.getRawValue()))
+                    .addOnFailureListener(error -> resultado.setText("Leitura não concluída. Tente novamente."));
+        });
+        findViewById(R.id.btnRegistrarManual).setOnClickListener(v -> registrar(codigo.getText().toString().trim()));
+        findViewById(R.id.btnAtualizarCursosLeitor).setOnClickListener(v -> atualizar());
+        findViewById(R.id.btnHistoricoEncontros).setOnClickListener(v -> historico());
+        atualizar();
     }
-    private void registrarPresenca(String codigo) {
-        int posicao = seletorCurso.getSelectedItemPosition();
 
-        if (posicao < 0 || posicao >= idsCursos.size()) {
-            resultado.setText("Selecione um curso.");
-            return;
-        }
-        if (codigo == null || !codigo.startsWith("ALUNO-") || codigo.length() <= 6) {
-            resultado.setText("Código inválido.");
-            return;
-        }
-        String token = AuthSession.getToken();
-        if (token == null || token.isEmpty()) {
-            resultado.setText("Faça login primeiro.");
-            return;
-        }
-        String alunoId = codigo.substring(6);
-        String cursoId = idsCursos.get(posicao);
-        PresencaRequest dados = new PresencaRequest(codigo, cursoId);
-        resultado.setText("Verificando presença...");
-
-        api.registrarPresenca("Bearer " + token, dados).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> resposta) {
-                int status = resposta.code();
-                if (status == 201 || status == 409) {
-                    salvarNoCelular(alunoId, cursoId, true);
-                } else if (status == 401) {
-                    resultado.setText("Faça login novamente.");
-                } else if (status == 403) {
-                    resultado.setText("Acesso negado.");
-                } else if (status == 404) {
-                    resultado.setText("Aluno não inscrito.");
-                } else {
-                    resultado.setText("Erro: " + status);
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable erro) {
-                salvarNoCelular(alunoId, cursoId, false);
-            }
+    private boolean sessaoAtual() {
+        return dono != null && dono.equals(AuthSession.getAlunoId()) && token.equals(AuthSession.getToken());
+    }
+    private void habilitar(boolean enabled) {
+        for (int id : new int[]{R.id.btnLerQr, R.id.btnRegistrarManual, R.id.btnAtualizarCursosLeitor, R.id.btnHistoricoEncontros}) findViewById(id).setEnabled(enabled);
+        seletor.setEnabled(enabled);
+    }
+    private void iniciar() { ocupado = true; habilitar(false); resultado.setText("Aguarde…"); }
+    private void terminar(String message) {
+        runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) return;
+            ocupado = false;
+            habilitar(sessaoAtual());
+            resultado.setText(sessaoAtual() ? message : "A sessão mudou. Abra esta tela novamente.");
         });
     }
-    private void salvarNoCelular(String alunoId, String cursoId, boolean confirmado) {
-        resultado.setText("Salvando presença...");
-        new Thread(() -> {
-            boolean salvo = false;
-            boolean existe = false;
-            try (PresencasSQLite banco = new PresencasSQLite(getApplicationContext())) {
-                if (confirmado) {
-                    salvo = banco.salvarConfirmada(alunoId, cursoId);
-                } else {
-                    salvo = banco.salvarPendente(alunoId, cursoId);
-                    if (!salvo) {
-                        existe = banco.presencaExiste(alunoId, cursoId);
-                    }
-                }
-            } catch (Exception erro) {
-            }
-            boolean sucesso = salvo;
-            boolean jaExiste = existe;
-            runOnUiThread(() -> {
-                if (confirmado) {
-                    resultado.setText(sucesso
-                            ? "Presença confirmada e salva!"
-                            : "Confirmada na API, mas não salva no celular.");
-                } else if (sucesso) {
-                    resultado.setText("Sem conexão. Presença salva como pendente.");
-                } else if (jaExiste) {
-                    resultado.setText("Presença já salva neste aparelho.");
-                } else {
-                    resultado.setText("Erro ao salvar presença.");
-                }
-            });
-        }).start();
-    }
-    private void carregarCursos() {
-        if (consultaCursos != null) {
-            consultaCursos.cancel();
-        }
-        resultado.setText("Carregando cursos...");
-        findViewById(R.id.btnLerQr).setEnabled(false);
-        findViewById(R.id.btnRegistrarManual).setEnabled(false);
-        findViewById(R.id.btnAtualizarCursosLeitor).setEnabled(false);
-        consultaCursos = api.buscarCursosDisponiveis();
-        consultaCursos.enqueue(new Callback<JsonArray>() {
-            @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> resposta) {
-                if (call != consultaCursos || isFinishing()) return;
-                if (resposta.isSuccessful() && resposta.body() != null) {
-                    JsonArray cursos = resposta.body();
-
-                    new Thread(() -> {
-                        try (CursosCache cache = new CursosCache(getApplicationContext())) {
-                            cache.salvar(cursos.toString());
-                        } catch (Exception erro) {
-                        }
-                    }).start();
-                    mostrarCursos(cursos);
-                } else {
-                    carregarCache(call);
-                }
-            }
-            @Override
-            public void onFailure(Call<JsonArray> call, Throwable erro) {
-                if (!call.isCanceled()) {
-                    carregarCache(call);
-                }
-            }
+    private void registrar(String value) {
+        if (ocupado || !sessaoAtual()) return;
+        String encontro;
+        try {
+            int position = seletor.getSelectedItemPosition();
+            encontro = CodigoEncontro.encontro(value, position >= 0 && position < ids.size() ? ids.get(position) : null);
+        } catch (IllegalArgumentException error) { resultado.setText(error.getMessage()); return; }
+        iniciar();
+        executor.execute(() -> {
+            try (FilaEncontros fila = new FilaEncontros(getApplicationContext())) {
+                fila.salvar(dono, encontro, value);
+                terminar(enviar(fila, encontro, value));
+            } catch (Exception error) { terminar("Não foi possível salvar no aparelho. Nenhuma confirmação foi obtida."); }
         });
     }
-    private void carregarCache(Call<JsonArray> chamada) {
-        new Thread(() -> {
-            JsonArray cursos = new JsonArray();
-            try (CursosCache cache = new CursosCache(getApplicationContext())) {
-                String salvo = cache.ler();
-                if (salvo != null) {
-                    cursos = new JsonParser().parse(salvo).getAsJsonArray();
-                }
-            } catch (Exception erro) {
+    private String enviar(FilaEncontros fila, String encontro, String value) {
+        if (!sessaoAtual()) return "A sessão mudou. A presença continua pendente.";
+        try {
+            Response<EncontroResposta> response = api.registrarPresencaEncontro("Bearer " + token, encontro, new EncontroRequest(value)).execute();
+            if (response.isSuccessful() && response.body() != null && response.body().isConfirmado()) {
+                fila.confirmar(dono, encontro, value);
+                return "Presença confirmada no encontro.";
             }
-            JsonArray lista = cursos;
+            if (response.code() == 401) return "Entre novamente. A presença continua pendente.";
+            if (response.code() == 403) return "Acesso negado. Um aluno deve ler o QR do encontro; somente responsáveis registram outro aluno.";
+            if (response.code() == 422) return "Não confirmada: confira a inscrição e se o encontro está aberto. O registro continua pendente.";
+            return "Não confirmada pela API (" + response.code() + "). Atualize para tentar sincronizar.";
+        } catch (Exception error) { return "Sem confirmação da API. Presença salva como pendente; atualize quando a conexão voltar."; }
+    }
+    private void atualizar() {
+        if (ocupado || !sessaoAtual()) return;
+        iniciar();
+        executor.execute(() -> {
+            String info = "";
+            try (FilaEncontros fila = new FilaEncontros(getApplicationContext())) {
+                for (String[] item : fila.listar(dono)) info = enviar(fila, item[0], item[1]);
+                int pendentes = fila.listar(dono).size();
+                info = "Pendentes: " + pendentes + ". " + info;
+            } catch (Exception error) { info = "Não foi possível consultar a fila local."; }
+            JsonArray encontros = null;
+            boolean cache = false;
+            try {
+                Response<JsonArray> response = api.buscarEncontros("Bearer " + token).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    encontros = response.body();
+                    getSharedPreferences("encontros_cache", MODE_PRIVATE).edit().putString(dono, encontros.toString()).apply();
+                } else if (response.code() == 401 || response.code() == 403) {
+                    terminar("Acesso negado. Entre novamente."); return;
+                }
+            } catch (Exception ignored) { }
+            if (encontros == null) {
+                cache = true;
+                try { encontros = new JsonParser().parse(getSharedPreferences("encontros_cache", MODE_PRIVATE).getString(dono, "[]")).getAsJsonArray(); }
+                catch (Exception ignored) { encontros = new JsonArray(); }
+            }
+            JsonArray rows = encontros;
+            String message = (cache ? "Sem atualização da API. Exibindo encontros salvos. " : "Escolha o encontro para ler o QR de um aluno, ou leia o QR do encontro para sua própria presença. ") + info;
             runOnUiThread(() -> {
-                if (!isFinishing() && !isDestroyed() && chamada == consultaCursos) {
-                    mostrarCursos(lista);
+                if (isFinishing() || isDestroyed() || !sessaoAtual()) return;
+                int position = seletor.getSelectedItemPosition();
+                String previous = position >= 0 && position < ids.size() ? ids.get(position) : null;
+                ids.clear();
+                List<String> labels = new ArrayList<>();
+                for (JsonElement element : rows) {
+                    try {
+                        JsonObject item = element.getAsJsonObject();
+                        String id = item.get("id").getAsString();
+                        String label = item.get("curso").getAsString() + " — " + item.get("titulo").getAsString() + " (" + item.get("status").getAsString() + ")";
+                        ids.add(id); labels.add(label);
+                    } catch (Exception ignored) { }
                 }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, labels);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                seletor.setAdapter(adapter);
+                int index = ids.indexOf(previous);
+                if (index >= 0) seletor.setSelection(index);
+                terminar(message);
             });
-        }).start();
+        });
     }
-    private void mostrarCursos(JsonArray cursos) {
-        int posicao = seletorCurso.getSelectedItemPosition();
-        if (posicao >= 0 && posicao < idsCursos.size()) {
-            cursoSalvo = idsCursos.get(posicao);
-        }
-        idsCursos.clear();
-        List<String> nomes = new ArrayList<>();
-
-        for (JsonElement item : cursos) {
-            JsonObject curso = item.getAsJsonObject();
-            if (!curso.has("id") || curso.get("id").isJsonNull()
-                    || !curso.has("title") || curso.get("title").isJsonNull()) {
-                continue;
-            }
-            idsCursos.add(curso.get("id").getAsString());
-            nomes.add(curso.get("title").getAsString());
-        }
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, nomes);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seletorCurso.setAdapter(adaptador);
-
-        int indice = idsCursos.indexOf(cursoSalvo);
-        if (indice >= 0) {
-            seletorCurso.setSelection(indice);
-        }
-
-        boolean temCursos = !idsCursos.isEmpty();
-        findViewById(R.id.btnLerQr).setEnabled(temCursos);
-        findViewById(R.id.btnRegistrarManual).setEnabled(temCursos);
-        findViewById(R.id.btnAtualizarCursosLeitor).setEnabled(true);
-
-        resultado.setText(temCursos
-                ? "Selecione o curso e informe o código do aluno."
-                : "Nenhum curso encontrado.");
+    private void historico() {
+        if (ocupado || !sessaoAtual()) return;
+        iniciar();
+        executor.execute(() -> {
+            try {
+                Response<JsonArray> response = api.buscarHistoricoEncontros("Bearer " + token).execute();
+                if (!response.isSuccessful() || response.body() == null) { terminar("Não foi possível consultar o histórico."); return; }
+                StringBuilder text = new StringBuilder("Suas presenças confirmadas por encontro:\n");
+                for (JsonElement element : response.body()) {
+                    JsonObject item = element.getAsJsonObject();
+                    text.append(item.get("curso").getAsString()).append(" — ").append(item.get("encontro").getAsString()).append("\n").append(item.get("data_hora").getAsString()).append("\n\n");
+                }
+                if (response.body().size() == 0) text.append("Nenhuma presença confirmada.");
+                terminar(text.toString());
+            } catch (Exception error) { terminar("Sem conexão. Não foi possível consultar o histórico no servidor."); }
+        });
     }
-    @Override
-    protected void onSaveInstanceState(Bundle estado) {
-        int posicao = seletorCurso.getSelectedItemPosition();
-        if (posicao >= 0 && posicao < idsCursos.size()) {
-            estado.putString("curso", idsCursos.get(posicao));
-        }
-        super.onSaveInstanceState(estado);
-    }
-    @Override
-    protected void onDestroy() {
-        if (consultaCursos != null) {
-            consultaCursos.cancel();
-        }
-        super.onDestroy();
-    }
+    @Override protected void onDestroy() { executor.shutdown(); super.onDestroy(); }
 }

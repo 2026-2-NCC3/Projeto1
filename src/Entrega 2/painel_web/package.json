@@ -1,0 +1,19 @@
+{
+  "name": "proxima-etapa-painel-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Painel independente com armazenamento no Supabase e consulta de cursos da API existente.",
+  "type": "commonjs",
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check public/js/app.js && node --check public/js/api.js && node --check public/js/utils.js && node --check public/js/import-courses.js && node --check integracao.js && node --check public/js/integracao.js",
+    "test": "npm run check && node --test",
+    "check:database": "node scripts/check-database.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "UNLICENSED"
+}

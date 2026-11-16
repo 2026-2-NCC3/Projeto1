@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6F2CFF">
+  <meta name="description" content="Painel administrativo independente de demonstração do Próxima Etapa">
+  <title>Próxima Etapa · Painel da equipe</title>
+
+  <link rel="icon" href="/img/logo-proxima-etapa.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="module" src="/js/app.js"></script>
+
+  <style>
+    :root {
+      --green: #6F2CFF;
+      --green-dark: #4B1FB8;
+      --green-soft: #EEE6FF;
+      --lime: #F2C94C;
+      --bg: #F8F6FF;
+    }
+
+    .login-hero {
+      background: linear-gradient(
+        145deg,
+        #4B1FB8 0%,
+        #6F2CFF 65%,
+        #8250E8 100%
+      );
+    }
+
+    .hero-copy h1 em {
+      color: #F2C94C;
+    }
+
+    .logo-oficial {
+      display: block;
+      width: 190px;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .sidebar-brand .logo-oficial {
+      width: 150px;
+    }
+
+    .sidebar {
+      color: #F8F6FF;
+    }
+
+    .login-mini-icon {
+      background: #EAF5E5;
+      color: #38852C;
+    }
+
+    .live-dot {
+      background: #58C13D;
+    }
+
+    .mini-dot {
+      background: #F2C94C;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    #logoutButton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #6F2CFF;
+      color: #FFFFFF;
+      font: inherit;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    #logoutButton:hover {
+      background: #4B1FB8;
+    }
+
+    #logoutButton:focus-visible {
+      outline: 3px solid #4B1FB8;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .topbar-actions {
+        margin-left: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loginScreen" class="login-wrap is-hidden">
+    <section class="login-hero">
+      <div class="hero-shape hero-shape-a"></div>
+      <div class="hero-shape hero-shape-b"></div>
+
+      <div class="hero-header">
+        <img
+          src="/img/logo-proxima-etapa.png"
+          alt="Próxima Etapa"
+          class="logo-oficial"
+        >
+      </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow light">PAINEL DA EQUIPE</span>
+        <h1>O futuro se constrói <em>em cada encontro.</em></h1>
+        <p>
+          Organize cursos, acompanhe estudantes e transforme
+          participação em oportunidades.
+        </p>
+      </div>
+
+      <div class="hero-bottom">
+        <span class="mini-dot"></span>
+        Gestão que aproxima pessoas e possibilidades
+      </div>
+    </section>
+
+    <section class="login-content">
+      <div class="login-box">
+        <div class="login-mini-icon">✦</div>
+        <div class="eyebrow">ACESSO RESTRITO</div>
+        <h2>Bem-vindo de volta.</h2>
+
+        <p class="login-sub">
+          Entre com as credenciais de teste do painel.
+        </p>
+
+        <form id="loginForm" class="form-stack">
+          <label>
+            E-mail
+            <input
+              name="email"
+              type="email"
+              placeholder="admin@proximaetapa.local"
+              autocomplete="username"
+              required
+            >
+          </label>
+
+          <label>
+            Senha
+            <input
+              name="password"
+              type="password"
+              placeholder="Sua senha do painel"
+              autocomplete="current-password"
+              required
+              minlength="1"
+            >
+          </label>
+
+          <div
+            id="loginError"
+            class="error-banner is-hidden"
+            role="alert"
+          ></div>
+
+          <button class="btn btn-primary btn-wide" type="submit">
+            Entrar no painel <span>→</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div id="appScreen" class="app-layout is-hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <img
+          src="/img/logo-proxima-etapa.png"
+          alt="Próxima Etapa"
+          class="logo-oficial"
+        >
+      </div>
+
+      <div class="workspace-label">ESPAÇO DE TRABALHO</div>
+
+      <nav
+        class="sidebar-nav"
+        id="mainNav"
+        aria-label="Navegação principal"
+      ></nav>
+
+      <a href="/integracao.html">Encontros do aplicativo</a>
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <div class="sidebar-note-icon">✧</div>
+          <strong>Um novo caminho começa aqui.</strong>
+          <p>Juntos, criamos mais oportunidades para todos.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button
+            id="mobileMenu"
+            class="icon-button mobile-only"
+            type="button"
+            aria-label="Abrir menu"
+          >☰</button>
+
+          <div class="breadcrumbs">
+            <span>Espaço da equipe</span>
+            <b>›</b>
+            <strong id="breadcrumbCurrent">Visão geral</strong>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <span class="env-tag"><i></i> MODO TESTE</span>
+          <div class="avatar-circle">PE</div>
+
+          <button
+            id="logoutButton"
+            class="btn btn-primary"
+            type="button"
+          >
+            Sair da conta
+          </button>
+        </div>
+      </header>
+
+      <main id="mainContent" tabindex="-1"></main>
+
+      <footer class="footer">
+        Próxima Etapa · Painel de demonstração
+        <span>Feito para aprender, participar e avançar.</span>
+      </footer>
+    </div>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot" role="status" aria-live="polite"></div>
+</body>
+</html>

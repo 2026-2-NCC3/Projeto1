@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Curso da atividade"
+            android:text="Encontro da atividade"
             android:textColor="@color/perfil_texto"
             android:textSize="16sp" />
 
@@ -37,7 +37,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAtualizarCursosLeitor"
             style="@style/PerfilBotao"
-            android:text="Atualizar cursos" />
+            android:text="Atualizar e sincronizar" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLerQr"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Ou digite o código do aluno"
+            android:text="Ou digite o código do aluno ou encontro"
             android:textColor="@color/perfil_texto"
             android:textSize="16sp" />
 
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="ALUNO-UUID"
+            android:hint="ALUNO-UUID ou ENCONTRO-UUID"
             android:inputType="text"
             android:singleLine="true"
             android:minHeight="48dp" />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:accessibilityLiveRegion="polite"
-            android:text="Carregando cursos..."
+            android:text="Carregando encontros..."
             android:textColor="@color/perfil_texto"
             android:textSize="16sp" />
 
@@ -81,9 +81,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="É necessário entrar com uma conta de responsável autorizada."
+            android:text="Alunos leem o QR do encontro. Responsáveis também podem ler o QR do aluno após escolher o encontro."
             android:textColor="@color/perfil_texto_secundario"
             android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHistoricoEncontros"
+            style="@style/PerfilBotao"
+            android:text="Histórico de encontros" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVoltarLeitor"

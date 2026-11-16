@@ -472,6 +472,7 @@ app.post('/courses/:id/register', verificarToken, async (req, res) => {
 });
 
 require('./recursos/rotas')(app, pool, verificarToken, verificarChave);
+require('./recursos/encontros').instalar(app, pool, verificarToken, verificarChave);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

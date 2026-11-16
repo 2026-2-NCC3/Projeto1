@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Encontros do aplicativo · Próxima Etapa</title><link rel="stylesheet" href="/css/integracao.css"><script src="/js/integracao.js" defer></script></head>
+<body><main>
+<a href="/">← Voltar ao painel</a>
+<h1>Encontros do aplicativo</h1>
+<p>Gerencie encontros e presenças vinculados aos cursos e alunos do aplicativo.</p>
+<p id="feedback" role="status" aria-live="polite"></p>
+<button id="refresh" type="button">Atualizar</button>
+<section aria-labelledby="new-title"><h2 id="new-title">Novo encontro</h2>
+<form id="create"><label>Curso<select id="course" required></select></label><label>Nome<input id="title" maxlength="150" required></label><label>Data e horário<input id="date" type="datetime-local" required></label><button>Criar encontro</button></form></section>
+<section aria-labelledby="meeting-title"><h2 id="meeting-title">Encontros</h2><label>Escolha um encontro<select id="meeting"></select></label><p id="detail"></p>
+<button id="open" type="button">Abrir encontro</button> <button id="close" type="button">Encerrar encontro</button>
+<p>Alunos inscritos podem ler o QR abaixo no aplicativo para registrar a própria presença enquanto o encontro estiver aberto.</p><img id="qr" alt="QR do encontro selecionado" width="220" height="220" hidden>
+<h3>Alunos inscritos</h3><ul id="students"></ul></section>
+</main></body></html>

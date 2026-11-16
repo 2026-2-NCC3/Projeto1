@@ -1,0 +1,2 @@
+Gerador QR Code (vendor/QRCode): código original de Kazuhiko Arase (2009), licenciado sob MIT, com adaptações da biblioteca qrcode-terminal (licenciada sob Apache-2.0). Os cabeçalhos originais foram preservados. Fontes de referência: https://github.com/gtanner/qrcode-terminal e https://github.com/kazuhikoarase/qrcode-generator
+Esta cópia é distribuída apenas para o gerador local de QR Codes do protótipo e não faz chamadas a serviços de terceiros.

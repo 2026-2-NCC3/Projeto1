@@ -9,6 +9,17 @@ import retrofit2.http.POST;
 import java.util.List;
 
 public interface ApiService {
+    @GET("encontros")
+    Call<JsonArray> buscarEncontros(@Header("Authorization") String token);
+
+    @POST("encontros/{id}/presencas")
+    Call<EncontroResposta> registrarPresencaEncontro(
+            @Header("Authorization") String token,
+            @retrofit2.http.Path("id") String id,
+            @Body EncontroRequest dados);
+
+    @GET("me/presencas-encontros")
+    Call<JsonArray> buscarHistoricoEncontros(@Header("Authorization") String token);
     @GET("courses")
     Call<JsonArray> buscarCursosDisponiveis();
 

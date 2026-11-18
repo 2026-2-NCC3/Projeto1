@@ -26,7 +26,10 @@
         android:id="@+id/atualizarHistorico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Atualizar" />
+        android:text="Atualizar"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/regular"
+        android:textStyle="bold"/>
 
     <ListView
         android:id="@+id/listaHistorico"
@@ -38,6 +41,9 @@
         android:id="@+id/voltarHistorico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar" />
+        android:text="Voltar"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/regular"
+        android:textStyle="bold"/>
 
 </LinearLayout>

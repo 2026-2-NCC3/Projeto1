@@ -16,7 +16,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/perfil_roxo"
+            app:cardBackgroundColor="@color/green"
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp">
@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="PRÓXIMA ETAPA"
-                    android:textColor="@color/perfil_amarelo"
+                    android:textColor="@color/yellow"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/perfil_titulo"
+                    android:fontFamily="@font/regular"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -50,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/perfil_subtitulo"
+                    android:fontFamily="@font/regular"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -82,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/perfil_dados"
-                    android:textColor="@color/perfil_roxo"
+                    android:textColor="@color/purple"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:accessibilityHeading="true" />
@@ -139,7 +141,10 @@
             android:id="@+id/btnAtualizarPerfil"
             style="@style/PerfilBotao"
             android:layout_marginTop="12dp"
-            android:text="@string/perfil_atualizar" />
+            android:text="@string/perfil_atualizar"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -147,7 +152,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="@string/perfil_acessos"
-            android:textColor="@color/perfil_texto"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             android:accessibilityHeading="true" />

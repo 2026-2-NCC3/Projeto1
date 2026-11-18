@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +18,7 @@
             android:id="@+id/imgDetalheCurso"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/img_curso_online"
             android:contentDescription="Imagem do curso"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,9 +29,9 @@
             android:id="@+id/txtDetalheNome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:textSize="38sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/moderna"
             android:gravity="center"
             android:text="Nome do Curso"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,58 +42,100 @@
             android:id="@+id/txtDetalheCargaHoraria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
-            android:text="Total de vagas: --"
+            android:fontFamily="@font/moderna"
+            android:text="Total de vagas :"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDetalheNome" />
 
-        <TextView
-            android:id="@+id/txtDetalheSobre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/detalhes_sobre_curso"
-            android:textColor="@color/perfil_roxo"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtDetalheCargaHoraria" />
 
-        <TextView
-            android:id="@+id/txtDetalheDescricao"
+        <!-- CARDVIEW SOBRE O CURSO -->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSobreCurso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:lineSpacingExtra="4dp"
-            android:textColor="@color/perfil_texto_secundario"
-            android:textSize="16sp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtDetalheSobre"
-            tools:text="@string/detalhes_descricao_enem" />
+            app:layout_constraintTop_toBottomOf="@id/txtDetalheCargaHoraria">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/txtDetalheSobre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalhes_sobre_curso"
+                    android:textColor="@color/purple"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtDetalheDescricao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/regular"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDetalheSobre"
+                    tools:text="@string/detalhes_descricao_enem" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- BOTÃO INSCREVER-SE -->
 
         <Button
             android:id="@+id/btnInscrever"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="350dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
             android:text="Inscrever-se"
-            app:layout_constraintTop_toBottomOf="@id/txtDetalheDescricao"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"
+            app:backgroundTint="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/cardSobreCurso"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
+
+        <!-- BOTÃO VOLTAR -->
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVoltar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Voltar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnInscrever" />
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="Voltar"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/green"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/seta"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="40dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintStart_toStartOf="@id/btnInscrever"
+            app:layout_constraintTop_toBottomOf="@id/btnInscrever" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

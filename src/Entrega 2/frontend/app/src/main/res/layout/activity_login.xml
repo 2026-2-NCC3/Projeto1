@@ -6,24 +6,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+
     tools:context=".login.LoginActivity">
+
+    <!-- NUVEM SUPERIOR -->
+
+    <ImageView
+        android:id="@+id/imgNuvemTopo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="-30dp"
+        android:layout_marginEnd="-40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/nuvem2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imgLogoLogin"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/logo_proxima_etapa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imgNuvemTopo" />
 
     <EditText
         android:id="@+id/edtEmailLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:hint="E-mail do Aluno"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
@@ -36,6 +52,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:hint="Palavra-passe"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -48,7 +66,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:text="Entrar"
+        android:fontFamily="@font/regular"
+        android:backgroundTint="@color/green"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSenhaLogin" />
@@ -59,11 +82,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Ainda não tem conta? Registe-se aqui."
-        android:textColor="#0000EE"
+        android:textColor="@color/purple"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
+
+    <!-- NUVEM INFERIOR -->
+
+    <ImageView
+        android:id="@+id/imgNuvemRodape"
+        android:layout_height="100dp"
+        android:layout_marginStart="-30dp"
+        android:layout_marginEnd="-40dp"
+        android:rotation="180"
+        android:scaleType="fitXY"
+        android:src="@drawable/nuvem1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

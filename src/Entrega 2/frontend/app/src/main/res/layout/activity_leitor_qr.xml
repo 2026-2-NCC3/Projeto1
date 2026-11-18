@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar presença"
-            android:textColor="@color/perfil_roxo"
+            android:textColor="@color/purple"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -37,12 +37,18 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAtualizarCursosLeitor"
             style="@style/PerfilBotao"
-            android:text="Atualizar e sincronizar" />
+            android:text="Atualizar e sincronizar"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLerQr"
             style="@style/PerfilBotao"
-            android:text="Escanear QR Code" />
+            android:text="Escanear QR Code"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -65,7 +71,10 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarManual"
             style="@style/PerfilBotao"
-            android:text="Registrar manualmente" />
+            android:text="Registrar manualmente"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtResultado"
@@ -88,13 +97,19 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHistoricoEncontros"
             style="@style/PerfilBotao"
-            android:text="Histórico de encontros" />
+            android:text="Histórico de encontros"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVoltarLeitor"
             style="@style/PerfilBotao"
             android:layout_marginTop="20dp"
-            android:text="Voltar" />
+            android:text="Voltar"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/regular"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

@@ -10,7 +10,7 @@
         android:id="@+id/cabecalhoCursos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/fundo_cabecalho_cursos"
+        android:background="@color/green"
         android:orientation="vertical"
         android:paddingTop="36dp"
         android:paddingBottom="24dp"
@@ -25,7 +25,7 @@
             android:paddingEnd="24dp"
             android:letterSpacing="0.12"
             android:text="@string/cursos_marca"
-            android:textColor="@color/perfil_amarelo"
+            android:textColor="@color/yellow"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -37,6 +37,7 @@
             android:paddingStart="80dp"
             android:paddingEnd="24dp"
             android:text="@string/cursos_titulo"
+            android:fontFamily="@font/regular"
             android:textColor="@color/white"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -49,6 +50,7 @@
             android:paddingStart="80dp"
             android:paddingEnd="24dp"
             android:text="@string/cursos_subtitulo"
+            android:fontFamily="@font/regular"
             android:textColor="@color/cursos_texto_cabecalho"
             android:textSize="14sp" />
 
